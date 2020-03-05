@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="12px" viewBox="0 0 10 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>0E256F91-9A8A-475F-8564-173772172A99</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Page-film" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-517.000000, -230.000000)">
+        <g id="bande-annonce" transform="translate(507.000000, 224.000000)" fill="#101835" fill-rule="nonzero">
+            <g id="Group-2" transform="translate(10.000000, 5.000000)">
+                <path d="M9.5473251,5.82853224 L1.27572016,1.12345679 C0.9739369,0.958847737 0.672153635,0.958847737 0.397805213,1.12345679 C0.12345679,1.28806584 0,1.58984911 0,1.89163237 L0,11.3292181 C0,11.6310014 0.164609053,11.9327846 0.397805213,12.0973937 C0.534979424,12.1659808 0.699588477,12.2345679 0.864197531,12.2345679 C1.02880658,12.2345679 1.1659808,12.1659808 1.26200274,12.0973937 L9.53360768,7.39231824 C9.83539095,7.22770919 10,6.92592593 10,6.62414266 C10,6.3223594 9.84910837,6.03429355 9.5473251,5.82853224 Z" id="play"></path>
+            </g>
+        </g>
+    </g>
+</svg>
