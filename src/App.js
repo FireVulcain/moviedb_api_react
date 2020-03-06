@@ -19,12 +19,15 @@ function App() {
             <Switch>
                 <Route exact path="/" component={Home}></Route>
                 <Route exact path="/discover"></Route>
-                <Route exact path="/films"></Route>
-                <Route exact path="/television"></Route>
+                <Route exact path="/movie"></Route>
+                <Route exact path="/movie/:imdbID" component={Movie}></Route>
+                <Route exact path="/movie/:imdbID/review"></Route>
+                <Route exact path="/tv"></Route>
+                <Route exact path="/tv/:imdbID"></Route>
+                <Route exact path="/tv/:imdbID/review"></Route>
                 <Route exact path="/person"></Route>
                 <Route exact path="/person/:idPerson"></Route>
                 <Route exact path="/search" component={Search}></Route>
-                <Route exact path="/movie/:imdbID" component={Movie}></Route>
             </Switch>
         </Router>
     );

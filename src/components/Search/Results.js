@@ -13,7 +13,7 @@ class Results extends Component {
                                 .map((data, key) => {
                                     return (
                                         <div key={key}>
-                                            <a href={"/movie/" + data.id}>
+                                            <a href={"/" + data.media_type + "/" + data.id}>
                                                 {data.poster_path ? (
                                                     <img src={"https://image.tmdb.org/t/p/w300/" + data.poster_path} alt={data.title} />
                                                 ) : (

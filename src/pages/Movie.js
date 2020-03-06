@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
+
 /* img */
 import play from "./../assets/play.svg";
 
@@ -23,22 +24,32 @@ class Movie extends Component {
                 }
             });
     };
-    groupBy(list, keyGetter) {
-        const map = new Map();
-        list.forEach((item) => {
-            const key = keyGetter(item);
-            const collection = map.get(key);
-            if (!collection) {
-                map.set(key, [item]);
-            } else {
-                collection.push(item);
-            }
+    formatCrew = (array) => {
+        let result = array.reduce((h, { job, id, name }) => {
+            return Object.assign(h, { [name]: (h[name] || []).concat({ job, id, name }) });
+        }, {});
+
+        let finalArray = [];
+        Object.entries(result).map((data) => {
+            finalArray[data[0]] = [];
+            return data[1].map((res) => {
+                let avaibleJob = ["Director", "Story", "Screenplay"];
+                if (avaibleJob.includes(res.job)) {
+                    finalArray[res.name].push([res.job]);
+                    finalArray[res.name].id = res.id;
+                }
+                return finalArray;
+            });
         });
-        return map;
-    }
+        for (var propName in finalArray) {
+            if (finalArray[propName].length === 0) {
+                delete finalArray[propName];
+            }
+        }
+        return finalArray;
+    };
     render() {
         const { datas, loading } = this.state;
-
         return (
             <div className="displayMovie">
                 {loading ? (
@@ -75,25 +86,16 @@ class Movie extends Component {
                                 <div>
                                     <h2>Featured Crew</h2>
                                     <ul className="listCrew">
-                                        {/* {datas.credits.crew.map((data, key) => {
-                                            let avaibleJob = ["Director", "Story", "Screenplay"];
-                                            if (avaibleJob.includes(data.job)) {
-                                                return (
-                                                    <li key={key}>
-                                                        <p className="crewName">
-                                                            <a href={"/person/" + data.id}>{data.name}</a>
-                                                        </p>
-                                                        <p className="crewJob">{data.job}</p>
-                                                    </li>
-                                                );
-                                            }
-                                            return false;
-                                        })} */}
-                                        {console.log(
-                                            this.groupBy(datas.credits.crew, (crew) => crew.job).get("Story"),
-                                            this.groupBy(datas.credits.crew, (crew) => crew.job).get("Director"),
-                                            this.groupBy(datas.credits.crew, (crew) => crew.job).get("Screenplay")
-                                        )}
+                                        {Object.entries(this.formatCrew(datas.credits.crew)).map((data, key) => {
+                                            return (
+                                                <li key={key}>
+                                                    <p className="crewName">
+                                                        <a href={"/person/" + data[1].id}>{data[0]}</a>
+                                                    </p>
+                                                    <p className="crewJob">{data[1].toString()}</p>
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
 
                                     <h2>Top Billed Cast</h2>
@@ -119,6 +121,14 @@ class Movie extends Component {
                                             return false;
                                         })}
                                     </div>
+                                    {datas.reviews.results.length > 0 ? (
+                                        <section id="review">
+                                            <h2>Last Review</h2>
+                                            <p className="reviewName">{datas.reviews.results[0].author}</p>
+                                            <p className="reviewContent">{datas.reviews.results[0].content}</p>
+                                            <a href={this.props.location.pathname + "/review"}>Read all reviews</a>
+                                        </section>
+                                    ) : null}
                                 </div>
                             ) : null}
                         </div>

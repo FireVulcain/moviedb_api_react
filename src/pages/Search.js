@@ -29,7 +29,7 @@ class Search extends Component {
             this.setState({ ...INIT_STATE });
         } else {
             this.setState({ loading: true });
-            fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}`)
+            fetch(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}`)
                 .then((res) => res.json())
                 .then((results) => {
                     console.log(results);
@@ -63,7 +63,7 @@ class Search extends Component {
 
     handlePage = (e) => {
         fetch(
-            `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}&page=${e.currentTarget.dataset.id}`
+            `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}&page=${e.currentTarget.dataset.id}`
         )
             .then((res) => res.json())
             .then((results) => {
