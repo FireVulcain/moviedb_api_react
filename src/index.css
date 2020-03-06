@@ -1,4 +1,5 @@
 html {
+    min-height: 100vh;
     background-image: linear-gradient(115deg, #23345f, #030619);
 }
 
@@ -22,7 +23,7 @@ code {
     background-color: #dbdbdb;
 }
 
-* {
+*:not(input):not(button) {
     color: #ffffff;
 }
 /* STYLES */
@@ -49,7 +50,68 @@ code {
     -o-transform: translate(-50%, -50%);
 }
 
-/* HOME */
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+nav .returnHome {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 800;
+}
+nav .returnHome img {
+    margin: 0 13.5px 0 23.5px;
+    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+}
+nav .nav_link a {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 30px 10px;
+    font-weight: 300;
+    color: #d1d1d1;
+    text-decoration: none;
+    font-size: 18px;
+}
+nav .nav_link a.active {
+    border-bottom: 2px solid #5967a5;
+}
+nav .nav_link a.navSearch {
+    margin-right: 50px;
+}
+nav .nav_link a.navSearch img {
+    width: 15px;
+}
+/* Search */
+
+#searchForm {
+    text-align: center;
+}
+#searchForm input[type="text"] {
+    font: inherit;
+    border: 0;
+    height: 1.1875em;
+    padding: 6px 0 7px;
+    margin: 0 10px 20px;
+    color: #fff;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+}
+#searchForm input[type="text"]:focus {
+    outline: 0;
+}
+
+#searchForm input[type="submit"] {
+    color: #fff;
+    background-color: #22345e;
+    border: none;
+    padding: 10px 20px;
+}
 .listData {
     display: flex;
     align-items: flex-start;
@@ -67,24 +129,75 @@ code {
     height: 400px;
 }
 
-/* MOVIE DETAILS */
-.displayMovie {
-    margin: 50px;
-}
-.listActors {
+.pagination {
     display: flex;
-    align-items: flex-start;
-    margin-top: 20px;
-    overflow-x: scroll;
+    justify-content: center;
+}
+.pagination div {
+    cursor: default;
+    margin-right: 20px;
+}
+.pagination div[data-id] {
+    cursor: pointer;
 }
 
-.listActors .cast {
-    width: 185px;
-    height: 277px;
-    margin-top: 8px;
-    margin-right: 20px;
-    border-radius: 4px;
+/* MOVIE DETAILS */
+.displayMovie {
+    max-width: 1400px;
+    margin: 50px auto 0;
+}
+.displayMovie .container {
+    display: flex;
+    align-items: flex-start;
+}
+.displayMovie .poster {
+    margin-right: 50px;
+    border-radius: 8px;
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+}
+.displayMovie .wrapperInfoMovie {
+    flex: 0 0 60%;
+    margin-right: 50px;
+}
+.displayMovie .wrapperInfoMovie h1 {
+    margin-top: 0;
+}
+.displayMovie .additionalInfo p:first-of-type {
+    margin-top: 0;
+}
+.displayMovie .additionalInfo strong {
+    display: block;
+    padding-bottom: 6px;
+    font-weight: 600;
+}
+.displayMovie .additionalInfo section.genres,
+.displayMovie .additionalInfo section.keywords {
+    max-width: 180px;
+}
+.displayMovie .additionalInfo section.genres ul,
+.displayMovie .additionalInfo section.keywords ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style-type: none;
+    line-height: 1.4em;
+    padding-left: 0;
+}
+.displayMovie .additionalInfo section.genres ul li,
+.displayMovie .additionalInfo section.keywords ul li {
+    margin-right: 5px;
+    margin-bottom: 10px;
+    line-height: 24px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    white-space: nowrap;
+
+    background-color: #fff;
+    border: 1px solid #d7d7d7;
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 4px;
 }
 
 .moreInfos {
@@ -101,10 +214,66 @@ code {
     padding: 5px 10px;
     margin-left: 19px;
     color: #0f1834;
-    font-size: 10px;
+    font-size: 12px;
     background-color: #ffffff;
 }
 .moreInfos .video .playTrailer {
     vertical-align: text-top;
     margin-right: 10px;
+}
+.wrapperInfoMovie .synopsis {
+    width: 80%;
+}
+.listCrew {
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    margin-top: 0;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    display: flex;
+}
+.listCrew li {
+    background-color: transparent;
+    height: auto;
+    width: 33%;
+    flex-basis: 33%;
+    text-align: left;
+    margin-bottom: 14px;
+    margin-right: 0;
+    box-sizing: border-box;
+    padding-right: 20px;
+}
+.listCrew p.crewName {
+    font-size: 1em;
+    line-height: 1.4em;
+    margin: 0;
+    overflow: hidden;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    padding: 0;
+}
+.listCrew p.crewName a {
+    text-decoration: none;
+}
+.listCrew p.crewJob {
+    font-size: 0.9em;
+    margin: 0;
+}
+.listActors {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.listActors .castImg {
+    width: 90px;
+    margin-top: 8px;
+    margin-right: 20px;
+    border-radius: 4px;
+    box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+}
+.listActors .actorName {
+    display: none;
 }
