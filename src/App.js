@@ -28,6 +28,9 @@ function App() {
                 <Route exact path="/tv/:imdbID/reviews"></Route>
                 <Route exact path="/person"></Route>
                 <Route exact path="/person/:idPerson"></Route>
+                <Route exact path="/tv/:imdbID/reviews"></Route>
+                <Route exact path="/trending"></Route>
+                <Route exact path="/trending/:idTrending"></Route>
                 <Route exact path="/network/:idNetwork"></Route>
                 <Route exact path="/genre/:idGenre"></Route>
                 <Route exact path="/keyword/:idKeyword"></Route>

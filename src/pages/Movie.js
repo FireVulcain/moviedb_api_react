@@ -39,7 +39,7 @@ class Movie extends Component {
                 ) : (
                     <div className="container">
                         {datas.poster_path ? (
-                            <img className="poster" src={"https://image.tmdb.org/t/p/w300/" + datas.poster_path} alt={datas.title} />
+                            <img className="poster" src={"https://image.tmdb.org/t/p/w300" + datas.poster_path} alt={datas.title} />
                         ) : (
                             <div className="no_image_holder"></div>
                         )}

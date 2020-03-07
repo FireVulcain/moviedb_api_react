@@ -20,7 +20,7 @@ class Results extends Component {
                                                     <div className="no_image_holder"></div>
                                                 )}
 
-                                                <p>{data.title}</p>
+                                                <p>{data.title ? data.title : data.name}</p>
                                             </a>
                                         </div>
                                     );

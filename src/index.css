@@ -29,6 +29,54 @@ code {
 a {
     text-decoration: none;
 }
+
+/* HOME */
+#homeContainer {
+    display: flex;
+    justify-content: center;
+}
+#homeContainer .onTv {
+    margin-right: 20px;
+}
+
+#homeContainer .onTv .onTvContainer,
+#homeContainer .inTheaters .inTheatersContainer {
+    max-width: 500px;
+    width: 100%;
+}
+#homeContainer .onTv .onTvContainer .highlightedSerie,
+#homeContainer .inTheaters .inTheatersContainer .highlightedMovie {
+    position: relative;
+    width: 500px;
+    height: 282px;
+}
+#homeContainer .onTv .onTvContainer .listSerie,
+#homeContainer .inTheaters .inTheatersContainer .listMovie {
+    position: relative;
+    width: 250px;
+    height: 141px;
+    float: left;
+}
+#homeContainer .onTv .onTvContainer h3.bannerTv,
+#homeContainer .inTheaters .inTheatersContainer h3.name {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+#homeContainer .onTv .onTvContainer h3.bannerTv span {
+    display: block;
+    font-size: 0.8em;
+}
 /* STYLES */
 
 .listData .no_image_holder,
@@ -135,12 +183,13 @@ nav .nav_link a.navSearch img {
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+    list-style: none;
 }
-.pagination div {
+.pagination li {
     cursor: default;
     margin-right: 20px;
 }
-.pagination div[data-id] {
+.pagination li:not(.selected):not(.disabled) {
     cursor: pointer;
 }
 

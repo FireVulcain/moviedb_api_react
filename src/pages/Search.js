@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
+import ReactPaginate from "react-paginate";
 
 import Results from "../components/Search/Results";
 
@@ -8,7 +9,7 @@ const INIT_STATE = {
     value: "",
     datas: [],
     total_pages: 0,
-    page: 0,
+    page: 1,
     loading: false
 };
 class Search extends Component {
@@ -44,27 +45,10 @@ class Search extends Component {
                 });
         }
     };
-    paginate = (total_pages, page) => {
-        const items = [];
 
-        for (let i = 1; i <= total_pages; i++) {
-            if (page === i) {
-                items.push(<div key={i}>{i}</div>);
-            } else {
-                items.push(
-                    <div data-id={i} key={i} onClick={this.handlePage}>
-                        {i}
-                    </div>
-                );
-            }
-        }
-        return items;
-    };
-
-    handlePage = (e) => {
-        fetch(
-            `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}&page=${e.currentTarget.dataset.id}`
-        )
+    handlePage = (data) => {
+        let page = data.selected + 1;
+        fetch(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}&page=${page}`)
             .then((res) => res.json())
             .then((results) => {
                 if (results.total_results > 0) {
@@ -77,7 +61,7 @@ class Search extends Component {
             });
     };
     render() {
-        const { datas, error, total_pages, page, loading } = this.state;
+        const { datas, error, total_pages, loading } = this.state;
         return (
             <div>
                 <form id="searchForm" onSubmit={this.handleSubmit}>
@@ -86,8 +70,15 @@ class Search extends Component {
                 </form>
 
                 {loading ? <SolarSystemLoading /> : <Results datas={datas} error={error} />}
-
-                <div className="pagination">{this.paginate(total_pages, page)}</div>
+                {datas.length > 0 ? (
+                    <ReactPaginate
+                        onPageChange={this.handlePage}
+                        pageCount={total_pages}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        containerClassName={"pagination"}
+                    />
+                ) : null}
             </div>
         );
     }
