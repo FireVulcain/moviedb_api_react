@@ -26,6 +26,9 @@ code {
 *:not(input):not(button) {
     color: #ffffff;
 }
+a {
+    text-decoration: none;
+}
 /* STYLES */
 
 .listData .no_image_holder,
@@ -75,7 +78,6 @@ nav .nav_link a {
     margin: 30px 10px;
     font-weight: 300;
     color: #d1d1d1;
-    text-decoration: none;
     font-size: 18px;
 }
 nav .nav_link a.active {
@@ -132,6 +134,7 @@ nav .nav_link a.navSearch img {
 .pagination {
     display: flex;
     justify-content: center;
+    margin-bottom: 50px;
 }
 .pagination div {
     cursor: default;
@@ -144,7 +147,7 @@ nav .nav_link a.navSearch img {
 /* MOVIE DETAILS */
 .displayMovie {
     max-width: 1400px;
-    margin: 50px auto 0;
+    margin: 50px auto;
 }
 .displayMovie .container {
     display: flex;
@@ -159,12 +162,91 @@ nav .nav_link a.navSearch img {
     flex: 0 0 60%;
     margin-right: 50px;
 }
-.displayMovie .wrapperInfoMovie h1 {
+
+.displayMovie .wrapperInfoMovie h1,
+.displayMovie .additionalInfo > h4 {
     margin-top: 0;
 }
-.displayMovie .additionalInfo p:first-of-type {
+.displayMovie .wrapperInfoMovie #review .teaser {
+    box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+    margin: 30px 0;
+    padding: 30px;
+}
+.displayMovie .wrapperInfoMovie #review .teaser h3 {
     margin-top: 0;
 }
+.displayMovie .wrapperInfoMovie #review .teaser .reviewName {
+    display: inline-block;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper {
+    display: flex;
+    overflow-x: scroll;
+    max-width: 840px;
+    width: 100%;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div {
+    max-width: 250px;
+    margin-right: 20px;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div img {
+    border-radius: 4px;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content {
+    display: block;
+    position: relative;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content .meta {
+    opacity: 0;
+    position: absolute;
+    bottom: 4px;
+    background-color: rgba(255, 255, 255, 0.8);
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    transition: 0.3s;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content .meta .release_date {
+    color: #000;
+    margin-left: 5px;
+}
+
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content:hover .meta {
+    opacity: 1;
+}
+
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .recommendationInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .recommendationInfo a {
+    display: inline-block;
+    width: 80%;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .recommendationInfo a p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .recommendationInfo .rating img,
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content .meta img {
+    width: 15px;
+    vertical-align: middle;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .recommendationInfo .rating img {
+    margin-top: -5px;
+    margin-left: 5px;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content .meta img {
+    margin-left: 10px;
+    margin-top: -2px;
+}
+
 .displayMovie .additionalInfo strong {
     display: block;
     padding-bottom: 6px;
@@ -189,17 +271,27 @@ nav .nav_link a.navSearch img {
     margin-right: 5px;
     margin-bottom: 10px;
     line-height: 24px;
-    font-size: 0.9em;
+    font-size: 0.8em;
     box-sizing: border-box;
     white-space: nowrap;
-
+}
+.displayMovie .additionalInfo section.genres ul li a,
+.displayMovie .additionalInfo section.keywords ul li a {
     background-color: #fff;
     border: 1px solid #d7d7d7;
     color: #000;
     padding: 4px 10px;
     border-radius: 4px;
 }
-
+.displayMovie .additionalInfo section.keywords h4 {
+    margin-bottom: 0px;
+}
+.displayMovie .additionalInfo section.keywords p {
+    margin-top: 10px;
+}
+.displayMovie .additionalInfo section.genres ul li a {
+    text-transform: uppercase;
+}
 .moreInfos {
     display: flex;
 }
@@ -254,9 +346,6 @@ nav .nav_link a.navSearch img {
     text-overflow: ellipsis;
     padding: 0;
 }
-.listCrew p.crewName a {
-    text-decoration: none;
-}
 .listCrew p.crewJob {
     font-size: 0.9em;
     margin: 0;
@@ -267,12 +356,18 @@ nav .nav_link a.navSearch img {
     margin-top: 20px;
 }
 
-.listActors .castImg {
+.listActors .castImg,
+.listActors .no_image_holder {
     width: 90px;
+    height: 135px;
     margin-top: 8px;
     margin-right: 20px;
+    box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+}
+.listActors .no_image_holder:before {
+    width: 50px;
 }
 .listActors .actorName {
     display: none;
