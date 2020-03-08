@@ -9,30 +9,32 @@ export default class RecommendationMovie extends Component {
             <section id="recommendation">
                 <h2>Recommendations</h2>
                 <div className="recommendationWrapper">
-                    {recommendations.results.map((data, key) => {
-                        if (key < 8) {
-                            return (
-                                <div key={key}>
-                                    <a className="img_content" href={"/movie/" + data.id}>
-                                        <img alt={data.title} src={"https://image.tmdb.org/t/p/w250_and_h141_face/" + data.backdrop_path} />
-                                        <div className="meta">
-                                            <img src={calendar} alt="calendar" />
-                                            <span className="release_date">{data.release_date}</span>
-                                        </div>
-                                    </a>
-                                    <div className="recommendationInfo">
-                                        <a href={"/movie/" + data.id}>
-                                            <p className="recommendationName">{data.title}</p>
-                                        </a>
-                                        <span className="rating">
-                                            {data.vote_average}
-                                            <img src={star} alt="rating" />
-                                        </span>
+                    {recommendations.results.slice(0, 8).map((data, key) => {
+                        let imgReco = data.backdrop_path ? (
+                            <img alt={data.title} src={`https://image.tmdb.org/t/p/w250_and_h141_face/${data.backdrop_path}`} />
+                        ) : (
+                            <div className="no_image_holder"></div>
+                        );
+                        return (
+                            <div key={key}>
+                                <a className="img_content" href={`/movie/${data.id}`}>
+                                    {imgReco}
+                                    <div className="meta">
+                                        <img src={calendar} alt="calendar" />
+                                        <span className="release_date">{data.release_date}</span>
                                     </div>
+                                </a>
+                                <div className="recommendationInfo">
+                                    <a href={`/movie/${data.id}`}>
+                                        <p className="recommendationName">{data.title}</p>
+                                    </a>
+                                    <span className="rating">
+                                        {data.vote_average}
+                                        <img src={star} alt="rating" />
+                                    </span>
                                 </div>
-                            );
-                        }
-                        return false;
+                            </div>
+                        );
                     })}
                 </div>
             </section>

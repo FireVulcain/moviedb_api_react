@@ -42,7 +42,7 @@ export default class ListCrew extends Component {
                                 return (
                                     <li key={key}>
                                         <p className="crewName">
-                                            <a href={"/person/" + data.id}>{data.name}</a>
+                                            <a href={`/person/${data.id}`}>{data.name}</a>
                                         </p>
                                         <p className="crewJob">Creator</p>
                                     </li>
@@ -58,7 +58,7 @@ export default class ListCrew extends Component {
                                 return (
                                     <li key={key}>
                                         <p className="crewName">
-                                            <a href={"/person/" + data[1].id}>{data[0]}</a>
+                                            <a href={`/person/${data[1].id}`}>{data[0]}</a>
                                         </p>
                                         <p className="crewJob">{data[1].toString()}</p>
                                     </li>

@@ -11,7 +11,7 @@ export default class ListActors extends Component {
                         return (
                             <div key={key}>
                                 {actors.profile_path ? (
-                                    <img className="castImg" src={"https://image.tmdb.org/t/p/w185/" + actors.profile_path} alt={actors.name} />
+                                    <img className="castImg" src={`https://image.tmdb.org/t/p/w185/${actors.profile_path}`} alt={actors.name} />
                                 ) : (
                                     <div className="no_image_holder"></div>
                                 )}

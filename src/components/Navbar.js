@@ -11,8 +11,8 @@ export default class Navbar extends Component {
                 <div className="returnHome">
                     <NavLink to="/">
                         <img src={Backwards} className="arrowLeft" alt="Backward arrow" />
+                        <p className="returnHomeTitle">Home</p>
                     </NavLink>
-                    <p className="returnHomeTitle">Home</p>
                 </div>
                 <div className="nav_link">
                     <NavLink to="/discover">Discover</NavLink>

@@ -25,10 +25,11 @@ function App() {
                 <Route exact path="/movie/:imdbID/reviews"></Route>
                 <Route exact path="/tv"></Route>
                 <Route exact path="/tv/:imdbID" component={Tv}></Route>
+                <Route exact path="/tv/:imdbID/season/:nbSeason" component={Tv}></Route>
+                <Route exact path="/tv/:imdbID/season/:nbSeason/episode/nbEpisode" component={Tv}></Route>
                 <Route exact path="/tv/:imdbID/reviews"></Route>
                 <Route exact path="/person"></Route>
                 <Route exact path="/person/:idPerson"></Route>
-                <Route exact path="/tv/:imdbID/reviews"></Route>
                 <Route exact path="/trending"></Route>
                 <Route exact path="/trending/:idTrending"></Route>
                 <Route exact path="/network/:idNetwork"></Route>

@@ -12,7 +12,7 @@ export default class MainInfos extends Component {
                     {datas.videos && datas.videos.results.length > 0 ? (
                         <div className="video">
                             <a
-                                href={"https://www.youtube.com/watch?v=" + datas.videos.results[0].key}
+                                href={`https://www.youtube.com/watch?v=${datas.videos.results[0].key}`}
                                 target="_blank"
                                 className="trailer"
                                 rel="noopener noreferrer"

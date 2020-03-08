@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
+import OnTv from "../components/Home/OnTv";
+import InTheaters from "../components/Home/InTheaters";
+import UpComing from "../components/Home/UpComing";
 
-const NUMBER_OF_ELEMENTS = 3;
+const NUMBER_OF_ELEMENTS = 7;
 
 class Home extends Component {
     constructor(props) {
@@ -10,34 +13,73 @@ class Home extends Component {
             onTv: {},
             inTheaters: {},
             loading: true,
-            nextEpisodeAirs: []
+            upComing: []
         };
     }
     componentDidMount = () => {
+        //Fetch On airs on TV
         fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
             .then((res) => res.json())
             .then((result) => {
-                // console.log(result);
                 if (result) {
-                    return this.setState({ onTv: result });
-                }
-            })
-            .then(() => {
-                for (let i = 0; i < NUMBER_OF_ELEMENTS; i++) {
-                    this.getAirDate(this.state.onTv.results[i].id).then((res) => {
-                        return this.setState({ nextEpisodeAirs: [...this.state.nextEpisodeAirs, res] });
-                    });
-                }
-            })
-            .then(() => {
-                fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
-                    .then((res) => res.json())
-                    .then((result) => {
-                        // console.log(result);
-                        if (result) {
-                            return this.setState({ inTheaters: result, loading: false });
+                    // console.log("On TV", result);
+                    result.results.sort((a, b) => b.popularity - a.popularity);
+                    return this.setState({ onTv: result }, () => {
+                        for (let i = 0; i < NUMBER_OF_ELEMENTS; i++) {
+                            this.getAirDate(result.results[i].id).then((res) => {
+                                let newState = [...this.state.onTv.results];
+                                newState.forEach((data) => {
+                                    if (res.props["data-id"] === data.id) {
+                                        data.nextEpisodeAirs = res;
+                                    }
+                                });
+                                return this.setState({ [this.state.onTv.results]: newState });
+                            });
                         }
                     });
+                }
+            });
+
+        //Fetch Now playing in theaters
+        fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+            .then((res) => res.json())
+            .then((result) => {
+                // console.log("In Theaters", result);
+                if (result) {
+                    return this.setState({ inTheaters: result }, () => {
+                        for (let i = 0; i < NUMBER_OF_ELEMENTS; i++) {
+                            let nbCast = i === 0 ? 3 : 2;
+                            this.getMovieCast(result.results[i].id, nbCast).then((res) => {
+                                let newState = [...this.state.inTheaters.results];
+                                res.map((cast, key) => {
+                                    return newState.forEach((data) => {
+                                        if (data.id === res[key].idFilm) {
+                                            data.cast = res;
+                                        }
+                                    });
+                                });
+                                return this.setState({ [this.state.inTheaters.results]: newState });
+                            });
+                        }
+                    });
+                }
+            });
+
+        //Fetch Upcoming
+        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+            .then((res) => res.json())
+            .then((result) => {
+                if (result) {
+                    for (let i = 1; i <= result.total_pages; i++) {
+                        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&page=${i}`)
+                            .then((res) => res.json())
+                            .then((result) => {
+                                // console.log("Upcoming", result);
+                                return this.setState({ upComing: [...this.state.upComing, result.results].flat(Infinity) });
+                            });
+                    }
+                }
+                return this.setState({ loading: false });
             });
     };
 
@@ -46,16 +88,30 @@ class Home extends Component {
             .then((res) => res.json())
             .then((result) => {
                 let nextEpisode = new Date(result.next_episode_to_air.air_date);
-                return this.dateDiffInDays(new Date(), nextEpisode);
+                let seasonNumber = result.next_episode_to_air.season_number;
+                let episodeNumber = result.next_episode_to_air.episode_number;
+                return [this.dateDiffInDays(new Date(), nextEpisode), seasonNumber, episodeNumber];
             })
             .then((res) => {
-                switch (res) {
+                switch (res[0]) {
                     case 0:
-                        return "Next episode airs today";
+                        return (
+                            <a data-id={id} href={`/tv/${id}/season/${res[1]}/episode/${res[2]}`}>
+                                New episode airs today
+                            </a>
+                        );
                     case 1:
-                        return "Next episode airs tomorrow";
+                        return (
+                            <a data-id={id} href={`/tv/${id}/season/${res[1]}/episode/${res[2]}`}>
+                                New episode airs tomorrow
+                            </a>
+                        );
                     default:
-                        return "Next episode airs in " + res + " days";
+                        return (
+                            <a data-id={id} href={`/tv/${id}/season/${res[1]}/episode/${res[2]}`}>
+                                New episode airs in {res[0]} days
+                            </a>
+                        );
                 }
             });
     };
@@ -66,53 +122,31 @@ class Home extends Component {
 
         return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     };
+    getMovieCast = (id, nbCast) => {
+        return fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&append_to_response=credits`)
+            .then((res) => res.json())
+            .then((result) => {
+                result.credits.cast.map((data) => {
+                    data.idFilm = id;
+                    return data;
+                });
+                return result.credits.cast.slice(0, nbCast);
+            });
+    };
     render() {
-        const { onTv, inTheaters, nextEpisodeAirs, loading } = this.state;
-
+        const { onTv, inTheaters, loading, upComing } = this.state;
         return (
             <div>
                 {loading ? (
                     <SolarSystemLoading />
                 ) : (
                     <div id="homeContainer">
-                        <div className="onTv">
-                            <h2>On TV</h2>
-                            <div className="onTvContainer">
-                                {onTv.results.slice(0, NUMBER_OF_ELEMENTS).map((data, key) => {
-                                    let cls = key === 0 ? "highlightedSerie" : "listSerie";
-                                    let imgPath =
-                                        key === 0 ? "https://image.tmdb.org/t/p/w500_and_h282_face" : "https://image.tmdb.org/t/p/w250_and_h141_face";
-                                    return (
-                                        <div key={key} className={cls}>
-                                            <a href={"/tv/" + data.id}>
-                                                <img src={imgPath + data.backdrop_path} alt="" />
-                                                <h3 className="bannerTv">
-                                                    {data.name} <span>{nextEpisodeAirs[key]}</span>
-                                                </h3>
-                                            </a>
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                        <div className="homeOnAir">
+                            <OnTv onTv={onTv.results} nbElements={NUMBER_OF_ELEMENTS} />
+                            <InTheaters inTheaters={inTheaters.results} nbElements={NUMBER_OF_ELEMENTS} />
                         </div>
-                        <div className="inTheaters">
-                            <h2>In Theaters</h2>
-                            <div className="inTheatersContainer">
-                                {inTheaters.results.slice(0, NUMBER_OF_ELEMENTS).map((data, key) => {
-                                    let cls = key === 0 ? "highlightedMovie" : "listMovie";
-                                    let imgPath =
-                                        key === 0 ? "https://image.tmdb.org/t/p/w500_and_h282_face" : "https://image.tmdb.org/t/p/w250_and_h141_face";
-                                    return (
-                                        <div key={key} className={cls}>
-                                            <a href={"/movie/" + data.id}>
-                                                <img src={imgPath + data.backdrop_path} alt="" />
-                                                <h3 className="name">{data.title}</h3>
-                                            </a>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
+
+                        <UpComing upComing={upComing} />
                     </div>
                 )}
             </div>

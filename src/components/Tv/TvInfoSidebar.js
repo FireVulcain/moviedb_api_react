@@ -18,8 +18,8 @@ export default class TvInfoSidebar extends Component {
 
                 <p>
                     <strong>Broadcaster</strong>
-                    <Link to={"/network/" + datas.networks[0].id}>
-                        <img src={"https://image.tmdb.org/t/p/h30/" + datas.networks[0].logo_path} alt="" />
+                    <Link to={`/network/${datas.networks[0].id}`}>
+                        <img src={`https://image.tmdb.org/t/p/h30/${datas.networks[0].logo_path}`} alt={`${datas.networks[0].name}`} />
                     </Link>
                 </p>
                 <p>
@@ -36,7 +36,7 @@ export default class TvInfoSidebar extends Component {
                         {datas.genres.map((genre, key) => {
                             return (
                                 <li key={key}>
-                                    <Link to={"/genre/" + genre.id}>{genre.name}</Link>
+                                    <Link to={`/genre/${genre.id}`}>{genre.name}</Link>
                                 </li>
                             );
                         })}
@@ -48,7 +48,7 @@ export default class TvInfoSidebar extends Component {
                         {datas.keywords.results.map((kw, key) => {
                             return (
                                 <li key={key}>
-                                    <Link to={"/keyword/" + kw.id}>{kw.name}</Link>
+                                    <Link to={`/keyword/${kw.id}`}>{kw.name}</Link>
                                 </li>
                             );
                         })}

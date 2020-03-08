@@ -32,6 +32,10 @@ a {
 
 /* HOME */
 #homeContainer {
+    max-width: 1020px;
+    margin: 0 auto;
+}
+#homeContainer .homeOnAir {
     display: flex;
     justify-content: center;
 }
@@ -49,34 +53,87 @@ a {
     position: relative;
     width: 500px;
     height: 282px;
+    margin-bottom: 5px;
 }
 #homeContainer .onTv .onTvContainer .listSerie,
 #homeContainer .inTheaters .inTheatersContainer .listMovie {
     position: relative;
+    display: inline-block;
     width: 250px;
     height: 141px;
-    float: left;
+    margin-top: -5px;
 }
-#homeContainer .onTv .onTvContainer h3.bannerTv,
-#homeContainer .inTheaters .inTheatersContainer h3.name {
+#homeContainer .onTv .onTvContainer .bannerTv,
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather {
     position: absolute;
     left: 0;
     bottom: 0;
+    display: flex;
+    align-items: flex-end;
     width: 100%;
     margin: 0;
     padding: 10px;
     background: rgba(0, 0, 0, 0.5);
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 16px;
     font-weight: 500;
     box-sizing: border-box;
 }
-#homeContainer .onTv .onTvContainer h3.bannerTv span {
-    display: block;
+#homeContainer .onTv .onTvContainer .bannerTv h3,
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather h3 {
+    font-size: 16px;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#homeContainer .onTv .onTvContainer .bannerTv img,
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather img {
+    margin-right: 15px;
+}
+#homeContainer .onTv .onTvContainer .bannerTv span,
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather span {
+    display: inline-block;
     font-size: 0.8em;
 }
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather > div {
+    width: 100%;
+}
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather .homeListCast {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather span {
+    margin-right: 4px;
+}
+
+#homeContainer .no_image_holder {
+    margin: 0 auto;
+}
+
+#homeContainer .upComingContainer {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+#homeContainer .upComingContainer img,
+#homeContainer .no_image_holder {
+    width: 94px;
+    height: 141px;
+    border-radius: 4px;
+    box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+#homeContainer .upComingContainer img:hover,
+#homeContainer .no_image_holder:hover {
+    transform: translateY(-7px);
+    border: solid 3px #ffffff;
+}
+
+#homeContainer .upComingContainer p {
+    width: 94px;
+}
+
 /* STYLES */
 
 .listData .no_image_holder,
@@ -93,7 +150,7 @@ a {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 150px;
+    width: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -106,7 +163,7 @@ nav {
     display: flex;
     justify-content: space-between;
 }
-nav .returnHome {
+nav .returnHome a {
     display: flex;
     align-items: center;
     font-size: 20px;
@@ -244,6 +301,10 @@ nav .nav_link a.navSearch img {
 .displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div img {
     border-radius: 4px;
 }
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .no_image_holder {
+    width: 250px;
+    height: 141px;
+}
 .displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div .img_content {
     display: block;
     position: relative;
@@ -332,9 +393,11 @@ nav .nav_link a.navSearch img {
     padding: 4px 10px;
     border-radius: 4px;
 }
+.displayMovie .additionalInfo section.genres h4,
 .displayMovie .additionalInfo section.keywords h4 {
     margin-bottom: 0px;
 }
+.displayMovie .additionalInfo section.genres p,
 .displayMovie .additionalInfo section.keywords p {
     margin-top: 10px;
 }
@@ -414,9 +477,6 @@ nav .nav_link a.navSearch img {
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
-}
-.listActors .no_image_holder:before {
-    width: 50px;
 }
 .listActors .actorName {
     display: none;
