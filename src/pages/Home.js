@@ -18,7 +18,7 @@ class Home extends Component {
     }
     componentDidMount = () => {
         //Fetch On airs on TV
-        fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+        let onAirTv = fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
             .then((res) => res.json())
             .then((result) => {
                 if (result) {
@@ -41,7 +41,7 @@ class Home extends Component {
             });
 
         //Fetch Now playing in theaters
-        fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+        let playingInTheaters = fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
             .then((res) => res.json())
             .then((result) => {
                 // console.log("In Theaters", result);
@@ -66,21 +66,24 @@ class Home extends Component {
             });
 
         //Fetch Upcoming
-        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+        let upComing = fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
             .then((res) => res.json())
             .then((result) => {
-                if (result) {
+                return new Promise((resolve) => {
                     for (let i = 1; i <= result.total_pages; i++) {
                         fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&page=${i}`)
                             .then((res) => res.json())
                             .then((result) => {
-                                // console.log("Upcoming", result);
                                 return this.setState({ upComing: [...this.state.upComing, result.results].flat(Infinity) });
                             });
                     }
-                }
-                return this.setState({ loading: false });
+                    return resolve(result);
+                });
             });
+
+        Promise.all([onAirTv, playingInTheaters, upComing]).then(() => {
+            return this.setState({ loading: false });
+        });
     };
 
     getAirDate = (id) => {
