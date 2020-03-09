@@ -16,7 +16,7 @@ export default class Navbar extends Component {
                 </div>
                 <div className="nav_link">
                     <NavLink to="/discover">Discover</NavLink>
-                    <NavLink to="/movie">Movies</NavLink>
+                    <NavLink to="/movies">Movies</NavLink>
                     <NavLink to="/tv">Television</NavLink>
                     <NavLink to="/person">People</NavLink>
                     <NavLink to="/trending">Trending</NavLink>

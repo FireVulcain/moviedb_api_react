@@ -52,7 +52,9 @@ class Movie extends Component {
                                     {datas.reviews.results.length > 0 ? (
                                         <ReviewMovie reviews={datas.reviews} pathName={this.props.location.pathname} />
                                     ) : null}
-                                    <RecommendationMovie recommendations={datas.recommendations} />
+                                    {datas.recommendations.results.length > 0 ? (
+                                        <RecommendationMovie recommendations={datas.recommendations} />
+                                    ) : null}
                                 </div>
                             ) : null}
                         </div>

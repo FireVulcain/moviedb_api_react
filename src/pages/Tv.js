@@ -53,7 +53,7 @@ class Tv extends Component {
                                     {datas.reviews.results.length > 0 ? (
                                         <ReviewTv reviews={datas.reviews} pathName={this.props.location.pathname} />
                                     ) : null}
-                                    <RecommendationTv recommendations={datas.recommendations} />
+                                    {datas.recommendations.results.length > 0 ? <RecommendationTv recommendations={datas.recommendations} /> : null}
                                 </div>
                             ) : null}
                         </div>

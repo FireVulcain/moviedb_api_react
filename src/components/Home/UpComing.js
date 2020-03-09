@@ -8,39 +8,67 @@ export default class UpComing extends Component {
 
         return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     };
+    formatDate = (date) => {
+        date = new Date(date);
+        let month = [];
+        month[0] = "January";
+        month[1] = "February";
+        month[2] = "March";
+        month[3] = "April";
+        month[4] = "May";
+        month[5] = "June";
+        month[6] = "July";
+        month[7] = "August";
+        month[8] = "September";
+        month[9] = "October";
+        month[10] = "November";
+        month[11] = "December";
+
+        return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    };
     render() {
         const { upComing } = this.props;
 
         return (
             <div className="upComing">
-                <h2>Upcoming</h2>
+                <h2>Upcoming Movies</h2>
                 <div className="upComingContainer">
                     {upComing.length > 0
-                        ? upComing
-                              .sort((a, b) => b.popularity - a.popularity)
-                              .sort((a, b) => new Date(a.release_date) - new Date(b.release_date))
-                              .filter((item) => this.dateDiffInDays(new Date(), new Date(item.release_date)) >= 0)
-                              .slice(0, 8)
-                              .map((datas, key) => {
-                                  let imgToDisplay =
-                                      datas.poster_path != null ? (
-                                          <img
-                                              src={`https://image.tmdb.org/t/p/w94_and_h141_bestv2/${datas.poster_path}`}
-                                              data-name={datas.title}
-                                              alt={datas.title}
-                                          />
-                                      ) : (
-                                          <div className="no_image_holder" data-name={datas.title}></div>
-                                      );
-                                  return (
-                                      <div key={key}>
-                                          <a href={`/movie/${datas.id}`}>
-                                              {imgToDisplay}
-                                              <p>{datas.title}</p>
-                                          </a>
+                        ? upComing.slice(0, 9).map((datas, key) => {
+                              let cls = key === 0 ? "highlightedUpComing" : "listUpComing";
+                              let imgToDisplay = datas.backdrop_path ? (
+                                  key === 0 ? (
+                                      <img src={"https://image.tmdb.org/t/p/w1280" + datas.backdrop_path} alt={datas.name} />
+                                  ) : (
+                                      <img src={"https://image.tmdb.org/t/p/w342" + datas.backdrop_path} alt={datas.name} />
+                                  )
+                              ) : (
+                                  <div className="no_image_holder"></div>
+                              );
+
+                              let imgPoster =
+                                  key === 0 ? (
+                                      datas.backdrop_path ? (
+                                          <img src={`https://image.tmdb.org/t/p/w58_and_h87_face/${datas.poster_path}`} alt={datas.name} />
+                                      ) : null
+                                  ) : null;
+                              return (
+                                  <div key={key} className={cls}>
+                                      <div>
+                                          <a href={`/movie/${datas.id}`}>{imgToDisplay}</a>
+                                          <div className="bannerUpComing">
+                                              <a href={`/movie/${datas.id}`}>{imgPoster}</a>
+                                              <div>
+                                                  <a href={`/movie/${datas.id}`}>
+                                                      <h3>{datas.title}</h3>
+                                                  </a>
+                                                  <span>{this.formatDate(datas.release_date)}</span>
+                                              </div>
+                                          </div>
                                       </div>
-                                  );
-                              })
+                                  </div>
+                              );
+                          })
                         : null}
                 </div>
             </div>

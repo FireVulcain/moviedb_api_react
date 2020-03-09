@@ -22,7 +22,9 @@ code {
     border: 1px solid #d7d7d7;
     background-color: #dbdbdb;
 }
-
+* {
+    box-sizing: border-box;
+}
 *:not(input):not(button) {
     color: #ffffff;
 }
@@ -49,14 +51,19 @@ a {
     width: 100%;
 }
 #homeContainer .onTv .onTvContainer .highlightedSerie,
-#homeContainer .inTheaters .inTheatersContainer .highlightedMovie {
+#homeContainer .inTheaters .inTheatersContainer .highlightedMovie,
+#homeContainer .upComing .upComingContainer .highlightedUpComing {
     position: relative;
-    width: 500px;
-    height: 282px;
     margin-bottom: 5px;
 }
+#homeContainer .onTv .onTvContainer .highlightedSerie,
+#homeContainer .inTheaters .inTheatersContainer .highlightedMovie {
+    width: 500px;
+    height: 282px;
+}
 #homeContainer .onTv .onTvContainer .listSerie,
-#homeContainer .inTheaters .inTheatersContainer .listMovie {
+#homeContainer .inTheaters .inTheatersContainer .listMovie,
+#homeContainer .upComing .upComingContainer .listUpComing {
     position: relative;
     display: inline-block;
     width: 250px;
@@ -64,7 +71,8 @@ a {
     margin-top: -5px;
 }
 #homeContainer .onTv .onTvContainer .bannerTv,
-#homeContainer .inTheaters .inTheatersContainer .bannerTheather {
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather,
+#homeContainer .upComing .upComingContainer .bannerUpComing {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -77,25 +85,36 @@ a {
     white-space: nowrap;
     font-size: 16px;
     font-weight: 500;
-    box-sizing: border-box;
 }
 #homeContainer .onTv .onTvContainer .bannerTv h3,
-#homeContainer .inTheaters .inTheatersContainer .bannerTheather h3 {
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather h3,
+#homeContainer .upComing .upComingContainer .bannerUpComing h3 {
     font-size: 16px;
     margin: 0;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 #homeContainer .onTv .onTvContainer .bannerTv img,
-#homeContainer .inTheaters .inTheatersContainer .bannerTheather img {
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather img,
+#homeContainer .upComing .upComingContainer .bannerUpComing img {
     margin-right: 15px;
 }
 #homeContainer .onTv .onTvContainer .bannerTv span,
-#homeContainer .inTheaters .inTheatersContainer .bannerTheather span {
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather span,
+#homeContainer .upComing .upComingContainer .bannerUpComing span {
     display: inline-block;
     font-size: 0.8em;
 }
-#homeContainer .inTheaters .inTheatersContainer .bannerTheather > div {
+#homeContainer .upComing .upComingContainer .listUpComing .no_image_holder {
+    height: 141px;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather > div,
+#homeContainer .upComing .upComingContainer .bannerUpComing > div {
     width: 100%;
 }
 #homeContainer .inTheaters .inTheatersContainer .bannerTheather .homeListCast {
@@ -111,27 +130,25 @@ a {
 }
 
 #homeContainer .upComingContainer {
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
+    max-width: 100%;
+    width: 100%;
 }
-#homeContainer .upComingContainer img,
-#homeContainer .no_image_holder {
-    width: 94px;
-    height: 141px;
-    border-radius: 4px;
-    box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
-    box-sizing: border-box;
-    transition: all 0.3s;
+#homeContainer .upComing .upComingContainer .highlightedUpComing {
+    overflow: hidden;
+    width: 100%;
+    height: 335px;
 }
-#homeContainer .upComingContainer img:hover,
-#homeContainer .no_image_holder:hover {
-    transform: translateY(-7px);
-    border: solid 3px #ffffff;
+#homeContainer .upComing .upComingContainer .highlightedUpComing img {
+    width: 100%;
 }
-
-#homeContainer .upComingContainer p {
-    width: 94px;
+#homeContainer .upComing .upComingContainer .listUpComing {
+    width: 25%;
+}
+#homeContainer .upComing .upComingContainer .listUpComing img {
+    width: 100%;
+}
+#homeContainer .upComing .upComingContainer .bannerUpComing {
+    bottom: -2px;
 }
 
 /* STYLES */
@@ -243,13 +260,81 @@ nav .nav_link a.navSearch img {
     list-style: none;
 }
 .pagination li {
-    cursor: default;
+    cursor: pointer;
     margin-right: 20px;
 }
-.pagination li:not(.selected):not(.disabled) {
-    cursor: pointer;
+.pagination li.selected,
+.pagination li.disabled {
+    cursor: default;
 }
-
+.pagination li.selected {
+    border: 1px solid #fff;
+    padding: 0 5px;
+}
+.pagination a {
+    outline: 0;
+}
+/*MOVIES PAGE*/
+.displayMovies {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+.displayMovies form select,
+.displayMovies form select option {
+    color: #000000;
+}
+.displayMovies .listMovies {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 25px;
+}
+.displayMovies .listMovies > div {
+    position: relative;
+    flex: 0 0 49%;
+    max-height: 282px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+.displayMovies .listMovies div img {
+    width: 500px;
+    height: 282px;
+}
+.displayMovies .listMovies div .container {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.8);
+}
+.displayMovies .listMovies div .container * {
+    color: #000000;
+}
+.displayMovies .listMovies div .container p {
+    margin: 0 0 0 20px;
+}
+.displayMovies .listMovies div .container p:not(.releaseDate) {
+    width: 100%;
+    display: block;
+    font-weight: 600;
+    font-size: 1.1em;
+    line-height: 1.1em;
+}
+.displayMovies .listMovies div .container p.releaseDate {
+    color: rgba(0, 0, 0, 0.6);
+}
+.displayMovies .no_image_holder {
+    width: 490px;
+    height: 280px;
+    border-radius: 0;
+}
 /* MOVIE DETAILS */
 .displayMovie {
     max-width: 1400px;
@@ -297,6 +382,9 @@ nav .nav_link a.navSearch img {
 .displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div {
     max-width: 250px;
     margin-right: 20px;
+}
+.displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div:last-of-type {
+    padding-right: 40px;
 }
 .displayMovie .wrapperInfoMovie #recommendation .recommendationWrapper > div img {
     border-radius: 4px;
@@ -382,7 +470,6 @@ nav .nav_link a.navSearch img {
     margin-bottom: 10px;
     line-height: 24px;
     font-size: 0.8em;
-    box-sizing: border-box;
     white-space: nowrap;
 }
 .displayMovie .additionalInfo section.genres ul li a,
@@ -446,7 +533,6 @@ nav .nav_link a.navSearch img {
     text-align: left;
     margin-bottom: 14px;
     margin-right: 0;
-    box-sizing: border-box;
     padding-right: 20px;
 }
 .listCrew p.crewName {
@@ -474,7 +560,6 @@ nav .nav_link a.navSearch img {
     height: 135px;
     margin-top: 8px;
     margin-right: 20px;
-    box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
 }

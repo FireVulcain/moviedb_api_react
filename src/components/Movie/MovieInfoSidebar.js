@@ -9,6 +9,14 @@ export default class MovieInfoSidebar extends Component {
         }
         return formattedValue;
     }
+    formatRuntime = (runtime) => {
+        let hours = Math.floor(runtime / 60);
+        let minutes = runtime % 60;
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        return `${hours}h${minutes} min`;
+    };
     render() {
         const { datas } = this.props;
         return (
@@ -24,7 +32,7 @@ export default class MovieInfoSidebar extends Component {
                 </p>
                 <p>
                     <strong>Runtime</strong>
-                    {Math.floor(datas.runtime / 60) + "h" + (datas.runtime % 60 < 10 ? (datas.runtime % 60) * 10 : datas.runtime % 60)}
+                    {this.formatRuntime(datas.runtime)}
                 </p>
                 <p>
                     <strong>Budget</strong>

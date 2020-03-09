@@ -66,19 +66,21 @@ class Home extends Component {
             });
 
         //Fetch Upcoming
-        let upComing = fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+        let upComing = fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
             .then((res) => res.json())
             .then((result) => {
-                return new Promise((resolve) => {
-                    for (let i = 1; i <= result.total_pages; i++) {
-                        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&page=${i}`)
-                            .then((res) => res.json())
-                            .then((result) => {
-                                return this.setState({ upComing: [...this.state.upComing, result.results].flat(Infinity) });
-                            });
-                    }
-                    return resolve(result);
-                });
+                // return new Promise((resolve) => {
+                //     for (let i = 1; i <= result.total_pages; i++) {
+                //         fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US&page=${i}`)
+                //             .then((res) => res.json())
+                //             .then((result) => {
+                //                 // console.log("Upcoming", result);
+                //                 return this.setState({ upComing: [...this.state.upComing, result.results].flat(Infinity) });
+                //             });
+                //     }
+                //     return resolve(result);
+                // });
+                return this.setState({ upComing: result.results });
             });
 
         Promise.all([onAirTv, playingInTheaters, upComing]).then(() => {
@@ -144,12 +146,11 @@ class Home extends Component {
                     <SolarSystemLoading />
                 ) : (
                     <div id="homeContainer">
+                        <UpComing upComing={upComing} />
                         <div className="homeOnAir">
                             <OnTv onTv={onTv.results} nbElements={NUMBER_OF_ELEMENTS} />
                             <InTheaters inTheaters={inTheaters.results} nbElements={NUMBER_OF_ELEMENTS} />
                         </div>
-
-                        <UpComing upComing={upComing} />
                     </div>
                 )}
             </div>

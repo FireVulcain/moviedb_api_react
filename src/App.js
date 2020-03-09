@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Search from "./pages/Search";
 import Tv from "./pages/Tv";
+import Movies from "./pages/Movies";
 
 const customHistory = createBrowserHistory();
 
@@ -20,7 +21,8 @@ function App() {
             <Switch>
                 <Route exact path="/" component={Home}></Route>
                 <Route exact path="/discover"></Route>
-                <Route exact path="/movie"></Route>
+                <Route exact path="/movies" component={Movies}></Route>
+                {/* <Route exact path="/movies/:type/:page(\d+)" component={Movies}></Route> */}
                 <Route exact path="/movie/:imdbID" component={Movie}></Route>
                 <Route exact path="/movie/:imdbID/reviews"></Route>
                 <Route exact path="/tv"></Route>
