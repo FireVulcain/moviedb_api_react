@@ -23,7 +23,7 @@ class SingleMovie extends Component {
         )
             .then((res) => res.json())
             .then((result) => {
-                console.log(result);
+                if (result.status_code === 34) return this.props.history.push(`/`);
                 if (result) {
                     return this.setState({ datas: result, loading: false });
                 }

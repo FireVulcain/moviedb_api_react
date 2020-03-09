@@ -281,10 +281,25 @@ nav .nav_link a.navSearch img {
     margin: 0 auto;
     position: relative;
 }
+.displayMovies form {
+    text-align: right;
+}
 .displayMovies form select,
+.displayMovies form select option {
+    font-size: 1em;
+}
+.displayMovies form select {
+    text-align: right;
+    background: transparent;
+    border: 1px solid #a7a5a5;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
 .displayMovies form select option {
     color: #000000;
 }
+
 .displayMovies .listMovies {
     display: flex;
     justify-content: space-between;
@@ -335,7 +350,7 @@ nav .nav_link a.navSearch img {
     height: 280px;
     border-radius: 0;
 }
-/* MOVIE DETAILS */
+/* SINGLE MOVIE DETAILS */
 .displayMovie {
     max-width: 1400px;
     margin: 50px auto;

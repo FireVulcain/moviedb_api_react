@@ -62,7 +62,7 @@ class Movies extends Component {
                     <select name="selectCat" id="selectCat" value={this.state.type} onChange={this.handleChange}>
                         <option value="popular">Popular</option>
                         <option value="top_rated">Top Rated</option>
-                        <option value="upcoming">Upcomming</option>
+                        <option value="upcoming">Upcoming</option>
                         <option value="now_playing">Now Playing</option>
                     </select>
                 </form>
