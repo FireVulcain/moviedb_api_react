@@ -20,7 +20,7 @@ export default class DisplayMovies extends Component {
         return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     };
     render() {
-        const { datas, error } = this.props;
+        const { datas } = this.props;
         return (
             <div>
                 {datas.length > 0 ? (
@@ -48,9 +48,7 @@ export default class DisplayMovies extends Component {
                             );
                         })}
                     </div>
-                ) : (
-                    <div>{error}</div>
-                )}
+                ) : null}
             </div>
         );
     }

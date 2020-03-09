@@ -9,7 +9,7 @@ import ListActors from "../components/Movie/ListActors";
 import ListCrews from "../components/Movie/ListCrews";
 import MainInfos from "../components/Movie/MainInfos";
 
-class Movie extends Component {
+class SingleMovie extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -67,4 +67,4 @@ class Movie extends Component {
         );
     }
 }
-export default Movie;
+export default SingleMovie;

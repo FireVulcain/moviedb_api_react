@@ -6,56 +6,60 @@ class Movies extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: "popular",
+            type: this.props.match.params.type ? this.props.match.params.type : "popular",
             datas: [],
             loading: true,
-            total_pages: 0,
-            error: ""
+            total_pages: 0
         };
     }
     componentDidMount = () => {
-        fetch(`https://api.themoviedb.org/3/movie/${this.state.value}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
+        let avaibleTypes = ["popular", "upcoming", "top_rated", "now_playing", undefined];
+        if (!avaibleTypes.includes(this.props.match.params.type)) return this.props.history.push(`/`);
+        fetch(`https://api.themoviedb.org/3/movie/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
             .then((res) => res.json())
             .then((result) => {
                 return this.setState({ datas: result.results, total_pages: result.total_pages, loading: false });
             });
     };
     handleChange = (event) => {
-        this.setState({ value: event.target.value, loading: true }, () => {
-            fetch(`https://api.themoviedb.org/3/movie/${this.state.value}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
+        this.setState({ type: event.target.value }, () => {
+            this.props.history.push(`/movies/${this.state.type}/1`);
+            fetch(`https://api.themoviedb.org/3/movie/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
                 .then((res) => res.json())
                 .then((result) => {
-                    return this.setState({ datas: result.results, total_pages: result.total_pages, loading: false });
+                    return this.setState({ datas: result.results, total_pages: result.total_pages });
                 });
         });
     };
-    handleSubmit(event) {
-        event.preventDefault();
-    }
 
     handlePage = (pageNumber) => {
         let page = pageNumber.selected + 1;
-        // this.props.history.push(`/movies/${this.state.value}/${page}`);
-        fetch(`https://api.themoviedb.org/3/movie/${this.state.value}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US&page=${page}`)
-            .then((res) => {
-                return res.json();
-            })
+
+        if (page > 500) return this.props.history.push(`/movies/${this.props.match.params.type}/1`);
+
+        this.props.history.push(`/movies/${this.state.type}/${page}`);
+
+        fetch(`https://api.themoviedb.org/3/movie/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US&page=${page}`)
+            .then((res) => res.json())
             .then((results) => {
-                if (results.total_results > 0) {
-                    return this.setState({ datas: results.results, loading: false }, () => {
-                        window.scrollTo(0, 0);
-                    });
-                } else {
-                    return this.setState({ error: "Aucun résultat" });
+                if (page <= 500) {
+                    if (results.results.length > 0) {
+                        return this.setState({ datas: results.results, loading: false }, () => {
+                            window.scrollTo(0, 0);
+                        });
+                    } else {
+                        return this.props.history.push(`/movies/${this.props.match.params.type}/1`);
+                    }
                 }
             });
     };
     render() {
-        const { datas, total_pages, loading, error, value } = this.state;
+        const { datas, total_pages, loading, type } = this.state;
+        let pageUrl = this.props.match.params.page;
         return (
             <div className="displayMovies">
-                <form onSubmit={this.handleSubmit}>
-                    <select name="selectCat" id="selectCat" value={this.state.value} onChange={this.handleChange}>
+                <form>
+                    <select name="selectCat" id="selectCat" value={this.state.type} onChange={this.handleChange}>
                         <option value="popular">Popular</option>
                         <option value="top_rated">Top Rated</option>
                         <option value="upcoming">Upcomming</option>
@@ -66,7 +70,7 @@ class Movies extends Component {
                     <SolarSystemLoading />
                 ) : (
                     <div>
-                        <DisplayMovies datas={datas} error={error} />
+                        <DisplayMovies datas={datas} />
                         {datas.length > 0 ? (
                             <ReactPaginate
                                 onPageChange={this.handlePage}
@@ -74,10 +78,11 @@ class Movies extends Component {
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
                                 containerClassName={"pagination"}
-                                hrefBuilder={(page) => `/movies/${value}/${page}`}
+                                hrefBuilder={(page) => `/movies/${type}/${page}`}
+                                initialPage={pageUrl ? parseInt(pageUrl - 1) : 0}
+                                forcePage={pageUrl ? parseInt(pageUrl - 1) : 0}
                             />
-                        ) : // initialPage={this.props.match.params.page ? parseInt(this.props.match.params.page - 1) : 0}
-                        null}
+                        ) : null}
                     </div>
                 )}
             </div>

@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 
 /* Page */
 import Home from "./pages/Home";
-import Movie from "./pages/Movie";
+import SingleMovie from "./pages/SingleMovie";
 import Search from "./pages/Search";
 import Tv from "./pages/Tv";
 import Movies from "./pages/Movies";
@@ -22,8 +22,8 @@ function App() {
                 <Route exact path="/" component={Home}></Route>
                 <Route exact path="/discover"></Route>
                 <Route exact path="/movies" component={Movies}></Route>
-                {/* <Route exact path="/movies/:type/:page(\d+)" component={Movies}></Route> */}
-                <Route exact path="/movie/:imdbID" component={Movie}></Route>
+                <Route exact path="/movies/:type/:page(\d+)" component={Movies}></Route>
+                <Route exact path="/movie/:imdbID" component={SingleMovie}></Route>
                 <Route exact path="/movie/:imdbID/reviews"></Route>
                 <Route exact path="/tv"></Route>
                 <Route exact path="/tv/:imdbID" component={Tv}></Route>
