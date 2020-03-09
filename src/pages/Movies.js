@@ -15,20 +15,12 @@ class Movies extends Component {
     componentDidMount = () => {
         let avaibleTypes = ["popular", "upcoming", "top_rated", "now_playing", undefined];
         if (!avaibleTypes.includes(this.props.match.params.type)) return this.props.history.push(`/`);
-        fetch(`https://api.themoviedb.org/3/movie/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
-            .then((res) => res.json())
-            .then((result) => {
-                return this.setState({ datas: result.results, total_pages: result.total_pages, loading: false });
-            });
+        this.handlePage({ selected: this.props.match.params.page ? parseInt(this.props.match.params.page - 1) : 0 });
     };
     handleChange = (event) => {
         this.setState({ type: event.target.value }, () => {
             this.props.history.push(`/movies/${this.state.type}/1`);
-            fetch(`https://api.themoviedb.org/3/movie/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US`)
-                .then((res) => res.json())
-                .then((result) => {
-                    return this.setState({ datas: result.results, total_pages: result.total_pages });
-                });
+            this.handlePage({ selected: 0 });
         });
     };
 
@@ -42,20 +34,18 @@ class Movies extends Component {
         fetch(`https://api.themoviedb.org/3/movie/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US&page=${page}`)
             .then((res) => res.json())
             .then((results) => {
-                if (page <= 500) {
-                    if (results.results.length > 0) {
-                        return this.setState({ datas: results.results, loading: false }, () => {
-                            window.scrollTo(0, 0);
-                        });
-                    } else {
-                        return this.props.history.push(`/movies/${this.props.match.params.type}/1`);
-                    }
+                if (results.results.length > 0) {
+                    return this.setState({ datas: results.results, total_pages: results.total_pages, loading: false }, () => {
+                        window.scrollTo(0, 0);
+                    });
+                } else {
+                    return this.props.history.push(`/movies/${this.props.match.params.type}/1`);
                 }
             });
     };
     render() {
         const { datas, total_pages, loading, type } = this.state;
-        let pageUrl = this.props.match.params.page;
+        let pageUrl = parseInt(this.props.match.params.page);
         return (
             <div className="displayMovies">
                 <form>
@@ -79,8 +69,7 @@ class Movies extends Component {
                                 pageRangeDisplayed={5}
                                 containerClassName={"pagination"}
                                 hrefBuilder={(page) => `/movies/${type}/${page}`}
-                                initialPage={pageUrl ? parseInt(pageUrl - 1) : 0}
-                                forcePage={pageUrl ? parseInt(pageUrl - 1) : 0}
+                                forcePage={pageUrl ? pageUrl - 1 : 0}
                             />
                         ) : null}
                     </div>

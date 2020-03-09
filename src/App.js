@@ -38,6 +38,8 @@ function App() {
                 <Route exact path="/genre/:idGenre(\d+)"></Route>
                 <Route exact path="/keyword/:idKeyword(\d+)"></Route>
                 <Route exact path="/search" component={Search}></Route>
+                <Route exact path="/search/:query" component={Search}></Route>
+                <Route exact path="/search/:query/:page(\d+)" component={Search}></Route>
             </Switch>
         </Router>
     );

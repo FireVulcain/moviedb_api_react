@@ -4,21 +4,24 @@ import ReactPaginate from "react-paginate";
 
 import Results from "../components/Search/Results";
 
-const INIT_STATE = {
-    error: null,
-    value: "",
-    datas: [],
-    total_pages: 0,
-    page: 1,
-    loading: false
-};
 class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...INIT_STATE
+            error: null,
+            value: this.props.match.params.query ? this.props.match.params.query : "",
+            datas: [],
+            total_pages: 0,
+            loading: false
         };
     }
+
+    componentDidMount = () => {
+        if (this.props.match.params.query) {
+            this.props.match.params.page = this.props.match.params.page ? this.props.match.params.page : 1;
+            this.handlePage({ selected: parseInt(this.props.match.params.page - 1) });
+        }
+    };
 
     handleChange = (event) => {
         this.setState({ value: event.target.value });
@@ -27,45 +30,49 @@ class Search extends Component {
         e.preventDefault();
 
         if (this.state.value === "") {
-            this.setState({ ...INIT_STATE });
+            return this.setState(
+                {
+                    error: null,
+                    value: "",
+                    datas: [],
+                    total_pages: 0,
+                    loading: false
+                },
+                () => {
+                    this.props.history.push(`/search/`);
+                }
+            );
         } else {
-            this.setState({ loading: true });
-            fetch(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}`)
-                .then((res) => res.json())
-                .then((results) => {
-                    console.log(results);
-                    if (results.total_results > 0) {
-                        return this.setState({ datas: results.results, total_pages: results.total_pages, page: results.page });
-                    } else {
-                        return this.setState({ error: "Aucun résultat" });
-                    }
-                })
-                .then(() => {
-                    this.setState({ loading: false });
-                });
+            return this.setState({ loading: true }, () => {
+                this.props.history.push(`/search/${this.state.value}/1`);
+                this.handlePage({ selected: 0 });
+            });
         }
     };
 
     handlePage = (data) => {
         let page = data.selected + 1;
+        this.props.history.push(`/search/${this.state.value}/${page}`);
         fetch(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${this.state.value}&page=${page}`)
             .then((res) => res.json())
             .then((results) => {
-                if (results.total_results > 0) {
-                    return this.setState({ datas: results.results, total_pages: results.total_pages, page: results.page }, () => {
+                if (results.errors) return this.setState({ error: "No film matches your request." });
+                if (results.results.length > 0) {
+                    return this.setState({ datas: results.results, total_pages: results.total_pages, loading: false }, () => {
                         window.scrollTo(0, 0);
                     });
                 } else {
-                    return this.setState({ error: "Aucun résultat" });
+                    return this.setState({ error: "No film matches your request." });
                 }
             });
     };
     render() {
-        const { datas, error, total_pages, loading } = this.state;
+        const { datas, error, total_pages, loading, value } = this.state;
+        let pageUrl = this.props.match.params.page;
         return (
             <div>
                 <form id="searchForm" onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search" />
+                    <input type="text" value={value} onChange={this.handleChange} placeholder="Search" />
                     <input type="submit" value="Search" />
                 </form>
 
@@ -77,6 +84,8 @@ class Search extends Component {
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={5}
                         containerClassName={"pagination"}
+                        hrefBuilder={(page) => `/search/${value}/${page}`}
+                        forcePage={pageUrl ? parseInt(pageUrl - 1) : 0}
                     />
                 ) : null}
             </div>
