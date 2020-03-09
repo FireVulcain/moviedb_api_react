@@ -62,7 +62,7 @@ class Search extends Component {
                         window.scrollTo(0, 0);
                     });
                 } else {
-                    return this.setState({ error: "No film matches your request." });
+                    return this.setState({ error: "No film matches your request.", loading: false });
                 }
             });
     };
