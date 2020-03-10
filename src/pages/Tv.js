@@ -28,7 +28,7 @@ class Tv extends Component {
     handlePage = (pageNumber) => {
         let page = pageNumber.selected + 1;
 
-        if (page > 500) return this.props.history.push(`/tv/${this.props.match.params.type}/1`);
+        if (page > 500) return (window.location.href = `/tv/${this.props.match.params.type}/1`);
 
         this.props.history.push(`/tv/${this.state.type}/${page}`);
 
@@ -48,7 +48,7 @@ class Tv extends Component {
         const { datas, total_pages, loading, type } = this.state;
         let pageUrl = parseInt(this.props.match.params.page);
         return (
-            <div className="displaytv">
+            <div className="displayTv">
                 <form>
                     <select name="selectCat" id="selectCat" value={this.state.type} onChange={this.handleChange}>
                         <option value="popular">Popular</option>

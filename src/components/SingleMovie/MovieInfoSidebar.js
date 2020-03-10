@@ -55,7 +55,7 @@ export default class MovieInfoSidebar extends Component {
                             })}
                         </ul>
                     ) : (
-                        <p>No Genre have been added yet.</p>
+                        <p>No genres have been added yet.</p>
                     )}
                 </section>
                 <section className="keywords">

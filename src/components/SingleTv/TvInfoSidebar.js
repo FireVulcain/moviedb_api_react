@@ -32,27 +32,35 @@ export default class TvInfoSidebar extends Component {
                 </p>
                 <section className="genres">
                     <h4>Genres</h4>
-                    <ul>
-                        {datas.genres.map((genre, key) => {
-                            return (
-                                <li key={key}>
-                                    <Link to={`/genre/${genre.id}`}>{genre.name}</Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    {datas.genres.length > 0 ? (
+                        <ul>
+                            {datas.genres.map((genre, key) => {
+                                return (
+                                    <li key={key}>
+                                        <Link to={`/genre/${genre.id}`}>{genre.name}</Link>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    ) : (
+                        <p>No genres have been added yet.</p>
+                    )}
                 </section>
                 <section className="keywords">
-                    <h4>Mots-clés</h4>
-                    <ul>
-                        {datas.keywords.results.map((kw, key) => {
-                            return (
-                                <li key={key}>
-                                    <Link to={`/keyword/${kw.id}`}>{kw.name}</Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    <h4>Keywords</h4>
+                    {datas.keywords.results.length > 0 ? (
+                        <ul>
+                            {datas.keywords.results.map((kw, key) => {
+                                return (
+                                    <li key={key}>
+                                        <Link to={`/keyword/${kw.id}`}>{kw.name}</Link>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    ) : (
+                        <p>No keywords have been added yet.</p>
+                    )}
                 </section>
             </div>
         );

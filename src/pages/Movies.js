@@ -27,7 +27,7 @@ class Movies extends Component {
     handlePage = (pageNumber) => {
         let page = pageNumber.selected + 1;
 
-        if (page > 500) return this.props.history.push(`/movies/${this.props.match.params.type}/1`);
+        if (page > 500) return (window.location.href = `/movies/${this.props.match.params.type}/1`);
 
         this.props.history.push(`/movies/${this.state.type}/${page}`);
 
