@@ -1,69 +1,83 @@
 import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
-
-/* img */
-import TvInfoSidebar from "../components/Tv/TvInfoSidebar";
-import RecommendationTv from "../components/Tv/RecommendationTv";
-import ReviewTv from "../components/Tv/ReviewTv";
-import ListActors from "../components/Tv/ListActors";
-import ListCrews from "../components/Tv/ListCrews";
-import MainInfos from "../components/Tv/MainInfos";
+import ReactPaginate from "react-paginate";
+import DisplayTv from "../components/Tv/DisplayTv";
 
 class Tv extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            datas: {},
-            loading: true
+            type: this.props.match.params.type ? this.props.match.params.type : "popular",
+            datas: [],
+            loading: true,
+            total_pages: 0
         };
     }
     componentDidMount = () => {
-        fetch(
-            `https://api.themoviedb.org/3/tv/${this.props.match.params.imdbID}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&append_to_response=videos,credits,reviews,keywords,recommendations`
-        )
+        let avaibleTypes = ["popular", "on_the_air", "top_rated", "airing_today", undefined];
+        if (!avaibleTypes.includes(this.props.match.params.type)) return this.props.history.push(`/`);
+        this.handlePage({ selected: this.props.match.params.page ? parseInt(this.props.match.params.page - 1) : 0 });
+    };
+    handleChange = (event) => {
+        this.setState({ type: event.target.value }, () => {
+            this.props.history.push(`/tv/${this.state.type}/1`);
+            this.handlePage({ selected: 0 });
+        });
+    };
+
+    handlePage = (pageNumber) => {
+        let page = pageNumber.selected + 1;
+
+        if (page > 500) return this.props.history.push(`/tv/${this.props.match.params.type}/1`);
+
+        this.props.history.push(`/tv/${this.state.type}/${page}`);
+
+        fetch(`https://api.themoviedb.org/3/tv/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US&page=${page}`)
             .then((res) => res.json())
-            .then((result) => {
-                if (result.status_code === 34) return this.props.history.push(`/`);
-                if (result) {
-                    return this.setState({ datas: result, loading: false });
+            .then((results) => {
+                if (results.results.length > 0) {
+                    return this.setState({ datas: results.results, total_pages: results.total_pages, loading: false }, () => {
+                        window.scrollTo(0, 0);
+                    });
+                } else {
+                    return this.props.history.push(`/tv/${this.props.match.params.type}/1`);
                 }
             });
     };
-
     render() {
-        const { datas, loading } = this.state;
+        const { datas, total_pages, loading, type } = this.state;
+        let pageUrl = parseInt(this.props.match.params.page);
         return (
-            <div className="displayMovie">
+            <div className="displaytv">
+                <form>
+                    <select name="selectCat" id="selectCat" value={this.state.type} onChange={this.handleChange}>
+                        <option value="popular">Popular</option>
+                        <option value="top_rated">Top Rated</option>
+                        <option value="on_the_air">On the Air</option>
+                        <option value="airing_today">Airing Today</option>
+                    </select>
+                </form>
                 {loading ? (
                     <SolarSystemLoading />
                 ) : (
-                    <div className="container">
-                        {datas.poster_path ? (
-                            <img className="poster" src={`https://image.tmdb.org/t/p/w300${datas.poster_path}`} alt={datas.title} />
-                        ) : (
-                            <div className="no_image_holder poster"></div>
-                        )}
-                        <div className="wrapperInfoMovie">
-                            <MainInfos datas={datas} />
-                            {datas.credits ? (
-                                <div>
-                                    <ListCrews crew={datas.credits.crew} creator={datas.created_by} />
-                                    {datas.credits.cast.length > 0 ? <ListActors actors={datas.credits.cast} /> : null}
-
-                                    {datas.reviews.results.length > 0 ? (
-                                        <ReviewTv reviews={datas.reviews} pathName={this.props.location.pathname} />
-                                    ) : null}
-                                    {datas.recommendations.results.length > 0 ? <RecommendationTv recommendations={datas.recommendations} /> : null}
-                                </div>
-                            ) : null}
-                        </div>
-                        <div className="additionalInfo">
-                            <TvInfoSidebar datas={datas} />
-                        </div>
+                    <div>
+                        <DisplayTv datas={datas} />
+                        {datas.length > 0 ? (
+                            <ReactPaginate
+                                onPageChange={this.handlePage}
+                                pageCount={total_pages}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                containerClassName={"pagination"}
+                                hrefBuilder={(page) => `/tv/${type}/${page}`}
+                                forcePage={pageUrl ? pageUrl - 1 : 0}
+                            />
+                        ) : null}
                     </div>
                 )}
             </div>
         );
     }
 }
+
 export default Tv;

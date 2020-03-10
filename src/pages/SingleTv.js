@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
 
 /* img */
-import MovieInfoSidebar from "../components/SingleMovie/MovieInfoSidebar";
-import RecommendationMovie from "../components/SingleMovie/RecommendationMovie";
-import ReviewMovie from "../components/SingleMovie/ReviewMovie";
-import ListActors from "../components/SingleMovie/ListActors";
-import ListCrews from "../components/SingleMovie/ListCrews";
-import MainInfos from "../components/SingleMovie/MainInfos";
+import TvInfoSidebar from "../components/SingleTv/TvInfoSidebar";
+import RecommendationTv from "../components/SingleTv/RecommendationTv";
+import ReviewTv from "../components/SingleTv/ReviewTv";
+import ListActors from "../components/SingleTv/ListActors";
+import ListCrews from "../components/SingleTv/ListCrews";
+import MainInfos from "../components/SingleTv/MainInfos";
 
-class SingleMovie extends Component {
+class Tv extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +19,7 @@ class SingleMovie extends Component {
     }
     componentDidMount = () => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${this.props.match.params.imdbID}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&append_to_response=videos,credits,reviews,keywords,recommendations`
+            `https://api.themoviedb.org/3/tv/${this.props.match.params.imdbID}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&append_to_response=videos,credits,reviews,keywords,recommendations`
         )
             .then((res) => res.json())
             .then((result) => {
@@ -45,21 +45,20 @@ class SingleMovie extends Component {
                         )}
                         <div className="wrapperInfoMovie">
                             <MainInfos datas={datas} />
-                            {datas.credits && datas.credits.cast.length > 0 ? (
+                            {datas.credits ? (
                                 <div>
-                                    <ListCrews crew={datas.credits.crew} />
-                                    <ListActors actors={datas.credits.cast} />
+                                    <ListCrews crew={datas.credits.crew} creator={datas.created_by} />
+                                    {datas.credits.cast.length > 0 ? <ListActors actors={datas.credits.cast} /> : null}
+
                                     {datas.reviews.results.length > 0 ? (
-                                        <ReviewMovie reviews={datas.reviews} pathName={this.props.location.pathname} />
+                                        <ReviewTv reviews={datas.reviews} pathName={this.props.location.pathname} />
                                     ) : null}
-                                    {datas.recommendations.results.length > 0 ? (
-                                        <RecommendationMovie recommendations={datas.recommendations} />
-                                    ) : null}
+                                    {datas.recommendations.results.length > 0 ? <RecommendationTv recommendations={datas.recommendations} /> : null}
                                 </div>
                             ) : null}
                         </div>
                         <div className="additionalInfo">
-                            <MovieInfoSidebar datas={datas} />
+                            <TvInfoSidebar datas={datas} />
                         </div>
                     </div>
                 )}
@@ -67,4 +66,4 @@ class SingleMovie extends Component {
         );
     }
 }
-export default SingleMovie;
+export default Tv;

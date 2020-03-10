@@ -274,21 +274,26 @@ nav .nav_link a.navSearch img {
 .pagination a {
     outline: 0;
 }
-/*MOVIES PAGE*/
-.displayMovies {
+/*MOVIES & TV PAGE*/
+.displayMovies,
+.displaytv {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     position: relative;
 }
-.displayMovies form {
+.displayMovies form,
+.displaytv form {
     text-align: right;
 }
 .displayMovies form select,
-.displayMovies form select option {
+.displayMovies form select option,
+.displaytv form select,
+.displaytv form select option {
     font-size: 1em;
 }
-.displayMovies form select {
+.displayMovies form select,
+.displaytv form select {
     text-align: right;
     background: transparent;
     border: 1px solid #a7a5a5;
@@ -296,11 +301,13 @@ nav .nav_link a.navSearch img {
     border-radius: 4px;
     padding: 5px 10px;
 }
-.displayMovies form select option {
+.displayMovies form select option,
+.displaytv form select option {
     color: #000000;
 }
 
-.displayMovies .listMovies {
+.displayMovies .listMovies,
+.displaytv .listTv {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -308,7 +315,8 @@ nav .nav_link a.navSearch img {
     width: 100%;
     margin-top: 25px;
 }
-.displayMovies .listMovies > div {
+.displayMovies .listMovies > div,
+.displaytv .listTv > div {
     position: relative;
     flex: 0 0 49%;
     max-height: 282px;
@@ -316,11 +324,13 @@ nav .nav_link a.navSearch img {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     overflow: hidden;
 }
-.displayMovies .listMovies div img {
+.displayMovies .listMovies div img,
+.displaytv .listTv div img {
     width: 500px;
     height: 282px;
 }
-.displayMovies .listMovies div .container {
+.displayMovies .listMovies div .container,
+.displaytv .listTv div .container {
     position: absolute;
     bottom: 0;
     display: flex;
@@ -329,23 +339,28 @@ nav .nav_link a.navSearch img {
     padding: 5px 15px;
     background: rgba(255, 255, 255, 0.8);
 }
-.displayMovies .listMovies div .container * {
+.displayMovies .listMovies div .container *,
+.displaytv .listTv div .container * {
     color: #000000;
 }
-.displayMovies .listMovies div .container p {
+.displayMovies .listMovies div .container p,
+.displaytv .listTv div .container p {
     margin: 0 0 0 20px;
 }
-.displayMovies .listMovies div .container p:not(.releaseDate) {
+.displayMovies .listMovies div .container p:not(.releaseDate),
+.displaytv .listTv div .container p:not(.releaseDate) {
     width: 100%;
     display: block;
     font-weight: 600;
     font-size: 1.1em;
     line-height: 1.1em;
 }
-.displayMovies .listMovies div .container p.releaseDate {
+.displayMovies .listMovies div .container p.releaseDate,
+.displaytv .listTv div .container p.releaseDate {
     color: rgba(0, 0, 0, 0.6);
 }
-.displayMovies .no_image_holder {
+.displayMovies .no_image_holder,
+.displaytv .no_image_holder {
     width: 490px;
     height: 280px;
     border-radius: 0;
