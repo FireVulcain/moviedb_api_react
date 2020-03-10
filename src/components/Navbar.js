@@ -18,7 +18,7 @@ export default class Navbar extends Component {
                     <NavLink to="/discover">Discover</NavLink>
                     <NavLink to="/movies">Movies</NavLink>
                     <NavLink to="/tv">Television</NavLink>
-                    <NavLink to="/person">People</NavLink>
+                    <NavLink to="/people">People</NavLink>
                     <NavLink to="/trending">Trending</NavLink>
                     <NavLink to="/search" className="navSearch">
                         {<img src={Search} alt="Search img" />}

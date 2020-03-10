@@ -16,6 +16,8 @@ class Results extends Component {
                                             <a href={`/${data.media_type}/${data.id}`}>
                                                 {data.poster_path ? (
                                                     <img src={`https://image.tmdb.org/t/p/w300/${data.poster_path}`} alt={data.title} />
+                                                ) : data.profile_path ? (
+                                                    <img src={`https://image.tmdb.org/t/p/w300/${data.profile_path}`} alt={data.name} />
                                                 ) : (
                                                     <div className="no_image_holder"></div>
                                                 )}

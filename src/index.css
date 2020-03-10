@@ -274,10 +274,11 @@ nav .nav_link a.navSearch img {
 .pagination a {
     outline: 0;
 }
-/*MOVIES & TV & DISCOVER PAGE*/
+/*MOVIES & TV & DISCOVER & PEOPLE PAGE*/
 .displayMovies,
 .displayTv,
-.displayDiscover {
+.displayDiscover,
+.displayPeople {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
@@ -314,7 +315,8 @@ nav .nav_link a.navSearch img {
 
 .displayMovies .listMovies,
 .displayTv .listTv,
-.displayDiscover .listDiscover {
+.displayDiscover .listDiscover,
+.displayPeople .listPeople {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -340,7 +342,8 @@ nav .nav_link a.navSearch img {
 }
 .displayMovies .listMovies div .container,
 .displayTv .listTv div .container,
-.displayDiscover .listDiscover div .container {
+.displayDiscover .listDiscover div .container,
+.displayPeople .listPeople div .container {
     position: absolute;
     bottom: 0;
     display: flex;
@@ -351,7 +354,8 @@ nav .nav_link a.navSearch img {
 }
 .displayMovies .listMovies div .container *,
 .displayTv .listTv div .container *,
-.displayDiscover .listDiscover div .container * {
+.displayDiscover .listDiscover div .container *,
+.displayPeople .listPeople div .container * {
     color: #000000;
 }
 .displayMovies .listMovies div .container p,
@@ -361,12 +365,13 @@ nav .nav_link a.navSearch img {
 }
 .displayMovies .listMovies div .container p:not(.releaseDate),
 .displayTv .listTv div .container p:not(.releaseDate),
-.displayDiscover .listDiscover div .container p:not(.releaseDate) {
+.displayDiscover .listDiscover div .container p:not(.releaseDate),
+.displayPeople .listPeople div .container p.name {
     width: 100%;
     display: block;
     font-weight: 600;
     font-size: 1.1em;
-    line-height: 1.1em;
+    line-height: normal;
 }
 .displayMovies .listMovies div .container p.releaseDate,
 .displayTv .listTv div .container p.releaseDate,
@@ -422,6 +427,33 @@ nav .nav_link a.navSearch img {
 }
 .displayDiscover form .react-select__menu * {
     text-align: left;
+}
+
+/* PEOPLE */
+.displayPeople .no_image_holder {
+    width: 235px;
+    height: 235px;
+}
+.displayPeople .listPeople > div {
+    position: relative;
+    flex: 0 0 23%;
+    max-height: 235px;
+    margin-bottom: 30px;
+}
+.displayPeople .listPeople > div .dataPeople {
+    width: 100%;
+}
+.displayPeople .listPeople > div .dataPeople p,
+.displayPeople .listPeople > div .dataPeople span {
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0;
+    width: 100%;
+    line-height: 1.2em;
+    margin: 0;
+    display: block;
 }
 
 /* SINGLE MOVIE DETAILS */

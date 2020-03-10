@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
 import ReactPaginate from "react-paginate";
 import DisplayMovies from "../components/Movies/DisplayMovies";
+
 class Movies extends Component {
     constructor(props) {
         super(props);
