@@ -18,6 +18,7 @@ class People extends Component {
         let page = pageNumber.selected + 1;
         if (page > 500) return (window.location.href = `/people/1`);
 
+        this.props.history.push(`/people/${page}`);
         fetch(`https://api.themoviedb.org/3/person/popular/?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&region=US&page=${page}`)
             .then((res) => res.json())
             .then((results) => {

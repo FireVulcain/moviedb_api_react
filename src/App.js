@@ -14,6 +14,7 @@ import Movies from "./pages/Movies";
 import Tv from "./pages/Tv";
 import Discover from "./pages/Discover";
 import People from "./pages/People";
+import Reviews from "./pages/Reviews";
 
 const customHistory = createBrowserHistory();
 
@@ -31,17 +32,17 @@ function App() {
                 <Route exact path="/movies" component={Movies}></Route>
                 <Route exact path="/movies/:type/:page(\d+)" component={Movies}></Route>
                 <Route exact path="/movie/:imdbID(\d+)" component={SingleMovie}></Route>
-                <Route exact path="/movie/:imdbID(\d+)/reviews"></Route>
+                <Route exact path="/movie/:imdbID(\d+)/reviews" component={Reviews}></Route>
 
                 <Route exact path="/tv" component={Tv}></Route>
                 <Route exact path="/tv/:type/:page(\d+)" component={Tv}></Route>
                 <Route exact path="/tv/:imdbID(\d+)" component={SingleTv}></Route>
+                <Route exact path="/tv/:imdbID(\d+)/reviews"></Route>
                 <Route exact path="/tv/:imdbID(\d+)/season/:nbSeason"></Route>
                 <Route exact path="/tv/:imdbID(\d+)/season/:nbSeason/episode/nbEpisode"></Route>
-                <Route exact path="/tv/:imdbID(\d+)/reviews"></Route>
 
                 <Route exact path="/people" component={People}></Route>
-                <Route exact path="/people/:page(\d+)"></Route>
+                <Route exact path="/people/:page(\d+)" component={People}></Route>
                 <Route exact path="/person/:idPerson(\d+)"></Route>
 
                 <Route exact path="/trending"></Route>

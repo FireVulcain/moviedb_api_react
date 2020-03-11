@@ -479,6 +479,9 @@ nav .nav_link a.navSearch img {
 .displayMovie .additionalInfo > h4 {
     margin-top: 0;
 }
+.displayMovie .wrapperInfoMovie #review .teaser a {
+    color: #ffe7ab;
+}
 .displayMovie .wrapperInfoMovie #review .teaser {
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
     margin: 30px 0;
@@ -487,6 +490,7 @@ nav .nav_link a.navSearch img {
 .displayMovie .wrapperInfoMovie #review .teaser h3 {
     margin-top: 0;
 }
+
 .displayMovie .wrapperInfoMovie #review .teaser .reviewName {
     display: inline-block;
     margin-bottom: 0;
@@ -686,4 +690,38 @@ nav .nav_link a.navSearch img {
 }
 .listActors .actorName {
     display: none;
+}
+
+.reviewsContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.reviewsContainer .infoMovies {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+.reviewsContainer .infoMovies img {
+    margin-right: 30px;
+    width: 70px;
+}
+.reviewsContainer .infoMovies h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 1.9em;
+}
+.reviewsContainer .infoMovies span {
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0.6;
+    font-size: 0.6em;
+    font-weight: 400;
+}
+.reviewsContainer .listReviews a {
+    color: #ffe7ab;
+}
+.reviewsContainer .listReviews > div {
+    box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+    margin: 35px 0;
+    padding: 10px 30px;
 }
