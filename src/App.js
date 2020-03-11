@@ -14,7 +14,8 @@ import Movies from "./pages/Movies";
 import Tv from "./pages/Tv";
 import Discover from "./pages/Discover";
 import People from "./pages/People";
-import Reviews from "./pages/Reviews";
+import MovieReviews from "./pages/MovieReviews";
+import TvReviews from "./pages/TvReviews";
 
 const customHistory = createBrowserHistory();
 
@@ -32,12 +33,12 @@ function App() {
                 <Route exact path="/movies" component={Movies}></Route>
                 <Route exact path="/movies/:type/:page(\d+)" component={Movies}></Route>
                 <Route exact path="/movie/:imdbID(\d+)" component={SingleMovie}></Route>
-                <Route exact path="/movie/:imdbID(\d+)/reviews" component={Reviews}></Route>
+                <Route exact path="/movie/:imdbID(\d+)/reviews" component={MovieReviews}></Route>
 
                 <Route exact path="/tv" component={Tv}></Route>
                 <Route exact path="/tv/:type/:page(\d+)" component={Tv}></Route>
                 <Route exact path="/tv/:imdbID(\d+)" component={SingleTv}></Route>
-                <Route exact path="/tv/:imdbID(\d+)/reviews"></Route>
+                <Route exact path="/tv/:imdbID(\d+)/reviews" component={TvReviews}></Route>
                 <Route exact path="/tv/:imdbID(\d+)/season/:nbSeason"></Route>
                 <Route exact path="/tv/:imdbID(\d+)/season/:nbSeason/episode/nbEpisode"></Route>
 

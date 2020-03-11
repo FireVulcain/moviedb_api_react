@@ -243,7 +243,7 @@ nav .nav_link a.navSearch img {
     justify-content: space-evenly;
     margin-top: 50px;
 }
-.listData div {
+.listData > div {
     margin: 0 20px;
     max-width: 300px;
     text-align: center;

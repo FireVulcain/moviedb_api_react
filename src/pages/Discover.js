@@ -94,6 +94,19 @@ class Discover extends Component {
                 return this.setState({ genres: results.genres });
             });
     };
+
+    // searchKeywords = (event) => {
+    //     let value = event.target.value;
+    //     if (value.length > 2) {
+    //         fetch(`https://api.themoviedb.org/3/search/keyword?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${value}`)
+    //             .then((res) => res.json())
+    //             .then((results) => {
+    //                 if (results.results.length > 0) {
+    //                     console.log(results);
+    //                 }
+    //             });
+    //     }
+    // };
     render() {
         const { loading, datas, total_pages, type, genres, error } = this.state;
         let pageUrl = parseInt(this.props.match.params.page);
@@ -135,6 +148,8 @@ class Discover extends Component {
                                 className="selectByGenre"
                                 classNamePrefix="react-select"
                             />
+
+                            {/* <input type="text" name="searchKeywords" onChange={this.searchKeywords} /> */}
                         </form>
                         <DisplayDiscover datas={datas} type={type} error={error} />
                         {datas.length > 0 ? (
