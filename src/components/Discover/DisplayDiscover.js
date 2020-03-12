@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 export default class DisplayDiscover extends Component {
     formatDate = (date) => {
+        if (!date) return "";
         date = new Date(date);
         let month = [];
         month[0] = "January";

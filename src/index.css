@@ -95,8 +95,7 @@ a {
     text-overflow: ellipsis;
 }
 #homeContainer .onTv .onTvContainer .bannerTv img,
-#homeContainer .inTheaters .inTheatersContainer .bannerTheather img,
-#homeContainer .upComing .upComingContainer .bannerUpComing img {
+#homeContainer .inTheaters .inTheatersContainer .bannerTheather img {
     margin-right: 15px;
 }
 #homeContainer .onTv .onTvContainer .bannerTv span,
@@ -143,6 +142,11 @@ a {
 }
 #homeContainer .upComing .upComingContainer .listUpComing {
     width: 25%;
+}
+
+#homeContainer .upComing .upComingContainer .bannerUpComing > a {
+    display: block;
+    margin-right: 15px;
 }
 #homeContainer .upComing .upComingContainer .listUpComing img {
     width: 100%;
