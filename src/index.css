@@ -403,13 +403,13 @@ nav .nav_link a.navSearch img {
     margin-top: 20px;
 }
 .displayDiscover form select,
-.displayDiscover form .selectByGenre {
+.displayDiscover form .selectMultiple {
     display: flex;
     margin-top: 20px;
     margin-right: 30px;
 }
 .displayDiscover form select#selectSortBy,
-.displayDiscover form .selectByGenre {
+.displayDiscover form .selectMultiple {
     flex: 0 0 30%;
 }
 .displayDiscover form .react-select__control {

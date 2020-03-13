@@ -7,6 +7,7 @@
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
         "d3-ease": "^1.0.6",
+        "debounce-promise": "^3.1.2",
         "lodash.groupby": "^4.6.0",
         "react": "^16.13.0",
         "react-circular-progressbar": "^2.0.3",

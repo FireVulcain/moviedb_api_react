@@ -3,6 +3,8 @@ import { SolarSystemLoading } from "react-loadingg";
 import ReactPaginate from "react-paginate";
 import DisplayDiscover from "../components/Discover/DisplayDiscover";
 import Select from "react-select";
+import AsyncSelect from "react-select/async";
+import debounce from "debounce-promise";
 
 class Discover extends Component {
     constructor(props) {
@@ -16,9 +18,14 @@ class Discover extends Component {
             genres: [],
             selectYear: "",
             selectSortBy: "popularity.desc",
-            selectByGenre: ""
+            selectByGenre: "",
+            selectByKeyword: ""
         };
+
+        const loadOptions = (inputValue) => this.searchKeywords(inputValue);
+        this.debouncedLoadOptions = debounce(loadOptions, 1000);
     }
+
     componentDidMount = () => {
         let avaibleTypes = ["movie", "tv", undefined];
         if (!avaibleTypes.includes(this.state.type)) return this.props.history.push(`/`);
@@ -44,14 +51,14 @@ class Discover extends Component {
     };
     handlePage = (pageNumber) => {
         let page = pageNumber.selected + 1;
-        const { selectYear, selectSortBy, selectByGenre } = this.state;
+        const { selectYear, selectSortBy, selectByGenre, selectByKeyword } = this.state;
 
         if (page > 500) return (window.location.href = `/discover/${this.props.match.params.type}/1`);
 
         this.props.history.push(`/discover/${this.state.type}/${page}`);
 
         fetch(
-            `https://api.themoviedb.org/3/discover/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&primary_release_year=${selectYear}&sort_by=${selectSortBy}&with_genres=${selectByGenre}&page=${page}`
+            `https://api.themoviedb.org/3/discover/${this.state.type}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&primary_release_year=${selectYear}&sort_by=${selectSortBy}&with_genres=${selectByGenre}&with_keywords=${selectByKeyword}&page=${page}`
         )
             .then((res) => res.json())
             .then((results) => {
@@ -75,38 +82,36 @@ class Discover extends Component {
             );
         });
     };
+    formatOption = (a) => {
+        a.map((b) => {
+            if ("name" !== "label") {
+                Object.defineProperty(b, "label", Object.getOwnPropertyDescriptor(b, "name"));
+                delete b["name"];
+            }
+            if ("id" !== "value") {
+                Object.defineProperty(b, "value", Object.getOwnPropertyDescriptor(b, "id"));
+                delete b["id"];
+            }
+            return false;
+        });
+    };
     getGenres = (type) => {
         return fetch(`https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
             .then((res) => res.json())
             .then((results) => {
-                results.genres.map((genre) => {
-                    if ("name" !== "label") {
-                        Object.defineProperty(genre, "label", Object.getOwnPropertyDescriptor(genre, "name"));
-                        delete genre["name"];
-                    }
-                    if ("id" !== "value") {
-                        Object.defineProperty(genre, "value", Object.getOwnPropertyDescriptor(genre, "id"));
-                        delete genre["id"];
-                    }
-                    return false;
-                });
-
+                this.formatOption(results.genres);
                 return this.setState({ genres: results.genres });
             });
     };
 
-    // searchKeywords = (event) => {
-    //     let value = event.target.value;
-    //     if (value.length > 2) {
-    //         fetch(`https://api.themoviedb.org/3/search/keyword?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${value}`)
-    //             .then((res) => res.json())
-    //             .then((results) => {
-    //                 if (results.results.length > 0) {
-    //                     console.log(results);
-    //                 }
-    //             });
-    //     }
-    // };
+    searchKeywords = (value) => {
+        return fetch(`https://api.themoviedb.org/3/search/keyword?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${value}`)
+            .then((res) => res.json())
+            .then((results) => {
+                this.formatOption(results.results);
+                return results.results;
+            });
+    };
     render() {
         const { loading, datas, total_pages, type, genres, error } = this.state;
         let pageUrl = parseInt(this.props.match.params.page);
@@ -145,11 +150,18 @@ class Discover extends Component {
                                 name="selectByGenre"
                                 options={genres}
                                 onChange={this.handleMultipleValue}
-                                className="selectByGenre"
+                                className="selectMultiple"
                                 classNamePrefix="react-select"
                             />
 
-                            {/* <input type="text" name="searchKeywords" onChange={this.searchKeywords} /> */}
+                            <AsyncSelect
+                                isMulti
+                                name="selectByKeyword"
+                                loadOptions={this.debouncedLoadOptions}
+                                onChange={this.handleMultipleValue}
+                                className="selectMultiple"
+                                classNamePrefix="react-select"
+                            />
                         </form>
                         <DisplayDiscover datas={datas} type={type} error={error} />
                         {datas.length > 0 ? (
