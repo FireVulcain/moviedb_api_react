@@ -150,9 +150,7 @@ a {
 }
 #homeContainer .upComing .upComingContainer .listUpComing img {
     width: 100%;
-}
-#homeContainer .upComing .upComingContainer .bannerUpComing {
-    bottom: -2px;
+    height: 141px;
 }
 
 /* STYLES */
