@@ -410,7 +410,7 @@ nav .nav_link a.navSearch img {
 }
 .displayDiscover form select#selectSortBy,
 .displayDiscover form .selectMultiple {
-    flex: 0 0 30%;
+    flex: 0 0 25%;
 }
 .displayDiscover form .react-select__control {
     background: transparent;
@@ -433,6 +433,27 @@ nav .nav_link a.navSearch img {
     text-align: left;
 }
 
+.displayMovies .listMovies svg,
+.displayTv .listTv svg,
+.displayDiscover .listDiscover svg {
+    width: 50px;
+}
+.displayMovies .listMovies .ratingText,
+.displayTv .listTv .ratingText,
+.displayDiscover .listDiscover .ratingText {
+    margin-left: 0 !important;
+    text-align: center;
+}
+.displayMovies .listMovies .ratingText span,
+.displayTv .listTv .ratingText span,
+.displayDiscover .listDiscover .ratingText span {
+    font-size: 0.9em;
+}
+.displayMovies .listMovies .ratingText sup,
+.displayTv .listTv .ratingText sup,
+.displayDiscover .listDiscover .ratingText sup {
+    font-size: 0.6em;
+}
 /* PEOPLE */
 .displayPeople .no_image_holder {
     width: 235px;

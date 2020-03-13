@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 
+/* Animated progress bar */
+import { easeQuadInOut } from "d3-ease";
+import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
+import AnimatedProgressProvider from "./../../utils/AnimatedProgressProvider";
+import "react-circular-progressbar/dist/styles.css";
 export default class DisplayMovies extends Component {
     formatDate = (date) => {
         date = new Date(date);
@@ -36,7 +41,32 @@ export default class DisplayMovies extends Component {
                                         )}
                                     </a>
                                     <div className="container">
-                                        <span>{data.vote_average * 10}%</span>
+                                        <AnimatedProgressProvider
+                                            valueStart={0}
+                                            valueEnd={data.vote_average * 10}
+                                            duration={1.4}
+                                            easingFunction={easeQuadInOut}
+                                        >
+                                            {(value) => {
+                                                const displayRating =
+                                                    value > 0 ? (
+                                                        <span>
+                                                            {Math.round(value)} <sup>%</sup>
+                                                        </span>
+                                                    ) : (
+                                                        "NR"
+                                                    );
+                                                return (
+                                                    <CircularProgressbarWithChildren
+                                                        className="rating"
+                                                        value={value}
+                                                        styles={buildStyles({ pathTransition: "none", trailColor: "#54689c", pathColor: "#23345f" })}
+                                                    >
+                                                        <p className="ratingText">{displayRating}</p>
+                                                    </CircularProgressbarWithChildren>
+                                                );
+                                            }}
+                                        </AnimatedProgressProvider>
                                         <div className="dataMovie">
                                             <a href={`/movie/${data.id}`}>
                                                 <p>{data.title}</p>

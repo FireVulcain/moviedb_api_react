@@ -35,7 +35,11 @@ export default class MainInfos extends Component {
                                     "NR"
                                 );
                             return (
-                                <CircularProgressbarWithChildren className="rating" value={value} styles={buildStyles({ pathTransition: "none" })}>
+                                <CircularProgressbarWithChildren
+                                    className="rating"
+                                    value={value}
+                                    styles={buildStyles({ pathTransition: "none", trailColor: "#54689c", pathColor: "#23345f" })}
+                                >
                                     <p className="ratingText">{displayRating}</p>
                                 </CircularProgressbarWithChildren>
                             );

@@ -103,7 +103,6 @@ class Discover extends Component {
                 return this.setState({ genres: results.genres });
             });
     };
-
     searchKeywords = (value) => {
         return fetch(`https://api.themoviedb.org/3/search/keyword?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${value}`)
             .then((res) => res.json())
@@ -112,6 +111,7 @@ class Discover extends Component {
                 return results.results;
             });
     };
+
     render() {
         const { loading, datas, total_pages, type, genres, error } = this.state;
         let pageUrl = parseInt(this.props.match.params.page);
@@ -152,6 +152,7 @@ class Discover extends Component {
                                 onChange={this.handleMultipleValue}
                                 className="selectMultiple"
                                 classNamePrefix="react-select"
+                                placeholder="Filter by genres..."
                             />
 
                             <AsyncSelect
@@ -161,6 +162,8 @@ class Discover extends Component {
                                 onChange={this.handleMultipleValue}
                                 className="selectMultiple"
                                 classNamePrefix="react-select"
+                                placeholder="Filter by keywords..."
+                                noOptionsMessage={() => "Type to search"}
                             />
                         </form>
                         <DisplayDiscover datas={datas} type={type} error={error} />
