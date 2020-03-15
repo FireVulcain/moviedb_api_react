@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { SolarSystemLoading } from "react-loadingg";
 
-/* img */
+/* components */
 import MovieInfoSidebar from "../components/SingleMovie/MovieInfoSidebar";
 import RecommendationMovie from "../components/SingleMovie/RecommendationMovie";
 import ReviewMovie from "../components/SingleMovie/ReviewMovie";

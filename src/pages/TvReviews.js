@@ -40,7 +40,6 @@ export default class Reviews extends Component {
     };
     render() {
         const { datas, loading } = this.state;
-        console.log(datas);
 
         return (
             <div>

@@ -451,6 +451,7 @@ nav .nav_link a.navSearch img {
 .displayTv .listTv .ratingText sup,
 .displayDiscover .listDiscover .ratingText sup {
     font-size: 0.6em;
+    margin-left: -5px;
 }
 /* PEOPLE */
 .displayPeople .no_image_holder {
@@ -757,6 +758,37 @@ nav .nav_link a.navSearch img {
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
     margin: 35px 0;
     padding: 10px 30px;
+}
+
+/* PERSON PAGE */
+#knownAs ul {
+    list-style: none;
+    padding-left: 0;
+}
+.listActorCasts {
+    display: flex;
+    flex-direction: column-reverse;
+    list-style: none;
+    padding-left: 0;
+    box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
+    border: 1px solid #e3e3e3;
+    border-bottom: none;
+}
+.listActorCasts > div {
+    border-bottom: 1px solid #dedede;
+    padding: 10px;
+}
+.listActorCasts > div li span {
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+}
+.listActorCasts > div li a {
+    font-weight: bold;
+}
+.react-tabs__tab:focus:after {
+    content: "";
+    background: transparent !important;
 }
 
 /* MODAL VIDEO */

@@ -16,6 +16,7 @@ import Discover from "./pages/Discover";
 import People from "./pages/People";
 import MovieReviews from "./pages/MovieReviews";
 import TvReviews from "./pages/TvReviews";
+import Person from "./pages/Person";
 
 const customHistory = createBrowserHistory();
 
@@ -44,7 +45,7 @@ function App() {
 
                 <Route exact path="/people" component={People}></Route>
                 <Route exact path="/people/:page(\d+)" component={People}></Route>
-                <Route exact path="/person/:idPerson(\d+)"></Route>
+                <Route exact path="/person/:idPerson(\d+)" component={Person}></Route>
 
                 <Route exact path="/trending"></Route>
                 <Route exact path="/trending/:idTrending(\d+)"></Route>
@@ -58,6 +59,8 @@ function App() {
                 <Route exact path="/search" component={Search}></Route>
                 <Route exact path="/search/:query" component={Search}></Route>
                 <Route exact path="/search/:query/:page(\d+)" component={Search}></Route>
+
+                <Route exact path="*" component={Home}></Route>
             </Switch>
         </Router>
     );
