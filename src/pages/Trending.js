@@ -18,7 +18,7 @@ class Trending extends Component {
     }
 
     componentDidMount = () => {
-        let avaibleTypes = ["movie", "tv", undefined];
+        let avaibleTypes = ["movie", "tv"];
         if (!avaibleTypes.includes(this.state.type)) return this.props.history.push(`/`);
         this.handlePage({ selected: this.props.match.params.page ? parseInt(this.props.match.params.page - 1) : 0 });
     };
@@ -80,7 +80,7 @@ class Trending extends Component {
                                 onChange={this.handleChange}
                                 className="selectMultiple"
                                 classNamePrefix="react-select"
-                                placeholder="Filter by time window"
+                                placeholder="Filter by..."
                             />
                         </form>
                         <DisplayTrending datas={datas} type={type} error={error} />

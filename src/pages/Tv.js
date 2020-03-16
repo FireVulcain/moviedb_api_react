@@ -14,8 +14,8 @@ class Tv extends Component {
         };
     }
     componentDidMount = () => {
-        let avaibleTypes = ["popular", "on_the_air", "top_rated", "airing_today", undefined];
-        if (!avaibleTypes.includes(this.props.match.params.type)) return this.props.history.push(`/`);
+        let avaibleTypes = ["popular", "on_the_air", "top_rated", "airing_today"];
+        if (!avaibleTypes.includes(this.state.type)) return this.props.history.push(`/`);
         this.handlePage({ selected: this.props.match.params.page ? parseInt(this.props.match.params.page - 1) : 0 });
     };
     handleChange = (event) => {
