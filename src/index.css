@@ -393,7 +393,8 @@ nav .nav_link a.navSearch img {
     font-size: 1.5em;
 }
 .displayDiscover .selectType a.active {
-    border-bottom: 1px solid #fff;
+    color: #8affc9;
+    border-bottom: 1px solid #8affc9;
 }
 
 .displayDiscover form {
@@ -414,7 +415,8 @@ nav .nav_link a.navSearch img {
     background: transparent;
     width: 100%;
 }
-.displayDiscover form .react-select__placeholder {
+.displayDiscover form .react-select__placeholder,
+.displayDiscover form .react-select__single-value {
     color: #fff;
 }
 .displayDiscover form .css-1rhbuit-multiValue {
@@ -770,6 +772,7 @@ nav .nav_link a.navSearch img {
     flex-direction: column-reverse;
     list-style: none;
     padding-left: 0;
+    margin-top: 0;
     box-shadow: 0 3px 17px 0 rgba(69, 84, 181, 0.8);
     border: 1px solid #e3e3e3;
     border-bottom: none;
@@ -789,6 +792,9 @@ nav .nav_link a.navSearch img {
 .react-tabs__tab:focus:after {
     content: "";
     background: transparent !important;
+}
+.react-tabs__tab-list {
+    margin-bottom: 0 !important;
 }
 
 /* MODAL VIDEO */

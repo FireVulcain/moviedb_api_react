@@ -17,6 +17,7 @@ import People from "./pages/People";
 import MovieReviews from "./pages/MovieReviews";
 import TvReviews from "./pages/TvReviews";
 import Person from "./pages/Person";
+import Trending from "./pages/Trending";
 
 const customHistory = createBrowserHistory();
 
@@ -47,8 +48,8 @@ function App() {
                 <Route exact path="/people/:page(\d+)" component={People}></Route>
                 <Route exact path="/person/:idPerson(\d+)" component={Person}></Route>
 
-                <Route exact path="/trending"></Route>
-                <Route exact path="/trending/:idTrending(\d+)"></Route>
+                <Route exact path="/trending" component={Trending}></Route>
+                <Route exact path="/trending/:type/:timezone/:page(\d+)" component={Trending}></Route>
 
                 <Route exact path="/network/:idNetwork(\d+)"></Route>
 

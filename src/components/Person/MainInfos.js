@@ -25,6 +25,13 @@ export default class MainInfos extends Component {
         });
         return a;
     };
+    displayData = (id) => {
+        fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
+            .then((res) => res.json())
+            .then((results) => {
+                console.log(results);
+            });
+    };
     render() {
         const { datas } = this.props;
         let defaultIndex = datas.movie_credits.cast.length > 0 ? 0 : 1;
