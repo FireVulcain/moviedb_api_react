@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { dateDiffInDays } from "./../utils/helpers";
+
 import { SolarSystemLoading } from "react-loadingg";
 import OnTv from "../components/Home/OnTv";
 import InTheaters from "../components/Home/InTheaters";
@@ -84,7 +86,7 @@ class Home extends Component {
                 let nextEpisode = new Date(result.next_episode_to_air.air_date);
                 let seasonNumber = result.next_episode_to_air.season_number;
                 let episodeNumber = result.next_episode_to_air.episode_number;
-                return [this.dateDiffInDays(new Date(), nextEpisode), seasonNumber, episodeNumber];
+                return [dateDiffInDays(new Date(), nextEpisode), seasonNumber, episodeNumber];
             })
             .then((res) => {
                 switch (res[0]) {
@@ -108,13 +110,6 @@ class Home extends Component {
                         );
                 }
             });
-    };
-    dateDiffInDays = (a, b) => {
-        const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-        const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
-        return Math.floor((utc2 - utc1) / _MS_PER_DAY);
     };
     getMovieCast = (id, nbCast) => {
         return fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&append_to_response=credits`)

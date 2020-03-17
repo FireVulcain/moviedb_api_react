@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { formatDate } from "./../../utils/helpers";
 
 /* Animated progress bar */
 import { easeQuadInOut } from "d3-ease";
@@ -7,25 +8,6 @@ import AnimatedProgressProvider from "./../../utils/AnimatedProgressProvider";
 import "react-circular-progressbar/dist/styles.css";
 
 export default class DisplayDiscover extends Component {
-    formatDate = (date) => {
-        if (!date) return "";
-        date = new Date(date);
-        let month = [];
-        month[0] = "January";
-        month[1] = "February";
-        month[2] = "March";
-        month[3] = "April";
-        month[4] = "May";
-        month[5] = "June";
-        month[6] = "July";
-        month[7] = "August";
-        month[8] = "September";
-        month[9] = "October";
-        month[10] = "November";
-        month[11] = "December";
-
-        return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-    };
     render() {
         const { datas, type, error } = this.props;
         return (
@@ -79,7 +61,7 @@ export default class DisplayDiscover extends Component {
                                             <a href={`/${type}/${data.id}`}>
                                                 <p>{title}</p>
                                             </a>
-                                            <p className="releaseDate">{this.formatDate(releaseDate)}</p>
+                                            <p className="releaseDate">{formatDate(releaseDate)}</p>
                                         </div>
                                     </div>
                                 </div>

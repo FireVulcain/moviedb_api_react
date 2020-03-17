@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { formatOption } from "./../utils/helpers";
+
 import { SolarSystemLoading } from "react-loadingg";
 import ReactPaginate from "react-paginate";
 import DisplayDiscover from "../components/Discover/DisplayDiscover";
@@ -82,24 +84,11 @@ class Discover extends Component {
             );
         });
     };
-    formatOption = (a) => {
-        a.map((b) => {
-            if ("name" !== "label") {
-                Object.defineProperty(b, "label", Object.getOwnPropertyDescriptor(b, "name"));
-                delete b["name"];
-            }
-            if ("id" !== "value") {
-                Object.defineProperty(b, "value", Object.getOwnPropertyDescriptor(b, "id"));
-                delete b["id"];
-            }
-            return false;
-        });
-    };
     getGenres = (type) => {
         return fetch(`https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}`)
             .then((res) => res.json())
             .then((results) => {
-                this.formatOption(results.genres);
+                formatOption(results.genres);
                 return this.setState({ genres: results.genres });
             });
     };
@@ -107,7 +96,7 @@ class Discover extends Component {
         return fetch(`https://api.themoviedb.org/3/search/keyword?api_key=${process.env.REACT_APP_MOVIEDB_API_KEY}&query=${value}`)
             .then((res) => res.json())
             .then((results) => {
-                this.formatOption(results.results);
+                formatOption(results.results);
                 return results.results;
             });
     };

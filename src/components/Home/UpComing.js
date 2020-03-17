@@ -1,31 +1,7 @@
 import React, { Component } from "react";
+import { formatDate } from "./../../utils/helpers";
 
 export default class UpComing extends Component {
-    dateDiffInDays = (a, b) => {
-        const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-        const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
-        return Math.floor((utc2 - utc1) / _MS_PER_DAY);
-    };
-    formatDate = (date) => {
-        date = new Date(date);
-        let month = [];
-        month[0] = "January";
-        month[1] = "February";
-        month[2] = "March";
-        month[3] = "April";
-        month[4] = "May";
-        month[5] = "June";
-        month[6] = "July";
-        month[7] = "August";
-        month[8] = "September";
-        month[9] = "October";
-        month[10] = "November";
-        month[11] = "December";
-
-        return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-    };
     render() {
         const { upComing } = this.props;
 
@@ -62,7 +38,7 @@ export default class UpComing extends Component {
                                                   <a href={`/movie/${datas.id}`}>
                                                       <h3>{datas.title}</h3>
                                                   </a>
-                                                  <span>{this.formatDate(datas.release_date)}</span>
+                                                  <span>{formatDate(datas.release_date)}</span>
                                               </div>
                                           </div>
                                       </div>

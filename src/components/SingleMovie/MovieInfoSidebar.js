@@ -1,22 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { formatCurrency, formatRuntime } from "./../../utils/helpers";
 
 export default class MovieInfoSidebar extends Component {
-    formatCurrency(currency) {
-        let formattedValue = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(currency);
-        if (formattedValue === "$0.00") {
-            formattedValue = "-";
-        }
-        return formattedValue;
-    }
-    formatRuntime = (runtime) => {
-        let hours = Math.floor(runtime / 60);
-        let minutes = runtime % 60;
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        return `${hours}h${minutes} min`;
-    };
     render() {
         const { datas } = this.props;
         return (
@@ -32,15 +18,15 @@ export default class MovieInfoSidebar extends Component {
                 </p>
                 <p>
                     <strong>Runtime</strong>
-                    {this.formatRuntime(datas.runtime)}
+                    {formatRuntime(datas.runtime)}
                 </p>
                 <p>
                     <strong>Budget</strong>
-                    {this.formatCurrency(datas.budget)}
+                    {formatCurrency(datas.budget)}
                 </p>
                 <p>
                     <strong>Recette</strong>
-                    {this.formatCurrency(datas.revenue)}
+                    {formatCurrency(datas.revenue)}
                 </p>
                 <section className="genres">
                     <h4>Genres</h4>

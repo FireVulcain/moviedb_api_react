@@ -1,29 +1,13 @@
 import React, { Component } from "react";
+import { formatDate } from "./../../utils/helpers";
 
 /* Animated progress bar */
 import { easeQuadInOut } from "d3-ease";
 import { CircularProgressbarWithChildren, buildStyles } from "react-circular-progressbar";
 import AnimatedProgressProvider from "./../../utils/AnimatedProgressProvider";
 import "react-circular-progressbar/dist/styles.css";
-export default class DisplayTv extends Component {
-    formatDate = (date) => {
-        date = new Date(date);
-        let month = [];
-        month[0] = "January";
-        month[1] = "February";
-        month[2] = "March";
-        month[3] = "April";
-        month[4] = "May";
-        month[5] = "June";
-        month[6] = "July";
-        month[7] = "August";
-        month[8] = "September";
-        month[9] = "October";
-        month[10] = "November";
-        month[11] = "December";
 
-        return `${month[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-    };
+export default class DisplayTv extends Component {
     render() {
         const { datas } = this.props;
         return (
@@ -71,7 +55,7 @@ export default class DisplayTv extends Component {
                                             <a href={`/tv/${data.id}`}>
                                                 <p>{data.name}</p>
                                             </a>
-                                            <p className="releaseDate">{this.formatDate(data.first_air_date)}</p>
+                                            <p className="releaseDate">{formatDate(data.first_air_date)}</p>
                                         </div>
                                     </div>
                                 </div>
