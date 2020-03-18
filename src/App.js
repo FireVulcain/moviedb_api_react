@@ -18,6 +18,7 @@ import MovieReviews from "./pages/MovieReviews";
 import TvReviews from "./pages/TvReviews";
 import Person from "./pages/Person";
 import Trending from "./pages/Trending";
+import NotFound from "./pages/NotFound";
 
 const customHistory = createBrowserHistory();
 
@@ -61,7 +62,7 @@ function App() {
                 <Route exact path="/search/:query" component={Search}></Route>
                 <Route exact path="/search/:query/:page(\d+)" component={Search}></Route>
 
-                <Route exact path="*" component={Home}></Route>
+                <Route exact path="*" component={NotFound}></Route>
             </Switch>
         </Router>
     );
