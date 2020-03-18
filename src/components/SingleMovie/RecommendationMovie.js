@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import star from "./../../assets/star.svg";
-import calendar from "./../../assets/calendar.svg";
+import star from "./../../assets/images/star.svg";
+import calendar from "./../../assets/images/calendar.svg";
 
 export default class RecommendationMovie extends Component {
     render() {

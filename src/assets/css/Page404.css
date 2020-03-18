@@ -191,7 +191,7 @@
 }
 
 .stars {
-    background: url("./assets/overlay_stars.svg");
+    background: url("./../images/overlay_stars.svg");
     background-repeat: repeat;
     background-size: contain;
     background-position: left top;

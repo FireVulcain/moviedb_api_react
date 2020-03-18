@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
-import Backwards from "./../assets/return_home.svg";
-import Search from "./../assets/search.svg";
+import Backwards from "./../assets/images/return_home.svg";
+import Search from "./../assets/images/search.svg";
 
 export default class Navbar extends Component {
     render() {

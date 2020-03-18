@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Img404 from "./../assets/404.svg";
-import Rocket from "./../assets/rocket.svg";
-import Earth from "./../assets/earth.svg";
-import Moon from "./../assets/moon.svg";
-import Astronaut from "./../assets/astronaut.svg";
+import Img404 from "./../assets/images/404.svg";
+import Rocket from "./../assets/images/rocket.svg";
+import Earth from "./../assets/images/earth.svg";
+import Moon from "./../assets/images/moon.svg";
+import Astronaut from "./../assets/images/astronaut.svg";
 
 export default class NotFound extends Component {
     render() {

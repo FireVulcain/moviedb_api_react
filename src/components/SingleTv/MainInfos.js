@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import play from "./../../assets/play.svg";
+import play from "./../../assets/images/play.svg";
 import ModalVideo from "react-modal-video";
 
 /* Animated progress bar */

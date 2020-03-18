@@ -165,7 +165,7 @@ a {
     height: 277px;
 }
 .no_image_holder:before {
-    content: url(assets/image-solid.svg);
+    content: url("./../images/image-solid.svg");
     position: absolute;
     top: 50%;
     left: 50%;
